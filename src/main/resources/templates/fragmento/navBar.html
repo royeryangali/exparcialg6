@@ -11,32 +11,20 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4" th:fragment="navbar (active)">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4" th:fragment="samuca2000 (active)">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
                 aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-
-              <!--  <li sec:authorize="hasAnyAuthority('admin','logistica')" class="nav-item"
-                    th:classappend="${active == 'Employee'?'active':''}">
-                    <a class="nav-link" th:href="@{/employee}">Employee</a>
-                </li>
-
-                <li sec:authorize="hasAnyAuthority('admin')" class="nav-item"
-                    th:classappend="${active == 'Shipper'?'active':''}">
-                    <a class="nav-link" th:href="@{/shipper}">Shipper</a>
-                </li>
-                <li class="nav-item" th:classappend="${active == 'Product'?'active':''}">
-                    <a class="nav-link" th:href="@{/product}">Product</a>
-                </li> -->
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div><h3>Mis Pedidos</h3></div>
             </ul>
             <div sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0">
                 <a class="nav-link" th:href="@{/loginForm}">Iniciar Sesión</a>
             </div>
             <div sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
-                <span th:text="|Bienvenido ${#authentication.name}|"></span>
+                <span th:text="${#authentication.name}"></span>
                 <form th:action="@{/logout}" method="post">
                     <input class="btn btn-link" type="submit" value="(Cerrar Sesión)"/>
                 </form>
