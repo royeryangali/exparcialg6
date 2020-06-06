@@ -10,6 +10,6 @@ public class PruebaController {
     @GetMapping(value={"/",""})
     public String prueba(){
 
-        return "login/loginForm";
+        return "login/recoveryForm";
     }
 }
