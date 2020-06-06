@@ -1,4 +1,7 @@
 package exparcialg6.demo.repository;
 
-public interface UsuarioRepository {
+import exparcialg6.demo.entity.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
 }
