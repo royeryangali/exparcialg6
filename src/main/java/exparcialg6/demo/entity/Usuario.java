@@ -23,10 +23,9 @@ public class Usuario {
     @Column(nullable = false, name="correo")
     private
     String correo;
-    @ManyToOne
-    @JoinColumn(name = "idrol")
+    @Column(nullable = false, name="rol")
     private
-    Rol rol;
+    String rol;
 
 
     public Integer getIdusuario() {
@@ -69,11 +68,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public Rol getRol() {
+
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 }
