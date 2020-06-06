@@ -3,30 +3,40 @@ package exparcialg6.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuario")
+@Table(name="usuario")
 public class Usuario {
 
     @Id
-    @Column(name = "idusuario")
+    @Column(name="idusuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idusuario;
+    private
+    Integer idusuario;
 
-    @Column(nullable = false, name = "nombre")
-    private String nombre;
+    @Column(nullable = false, name="nombre")
+    private
+    String nombre;
 
-    @Column(nullable = false, name = "apellido")
-    private String apellido;
+    @Column(nullable = false, name="apellido")
+    private
+    String apellido;
 
-    @Column(nullable = false, name = "dni")
-    private Integer dni;
+    @Column(nullable = false, name="dni")
+    private
+    Integer dni;
 
-    @Column(nullable = false, name = "correo")
-    private String correo;
+    @Column(nullable = false, name="correo")
+    private
+    String correo;
 
-    @ManyToOne
-    @JoinColumn(name = "idrol")
-    private Rol rol;
+    @Column(nullable = false, name="rol")
+    private
+    String rol;
 
+    @Column(nullable = false, name="activo")
+    private
+    int activo;
+
+    private String password;
 
     public Integer getIdusuario() {
         return idusuario;
@@ -68,11 +78,28 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public Rol getRol() {
+
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public int getActivo() {
+        return activo;
+    }
+
+    public void setActivo(int activo) {
+        this.activo = activo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
