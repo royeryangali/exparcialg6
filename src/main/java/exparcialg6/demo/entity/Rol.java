@@ -3,17 +3,16 @@ package exparcialg6.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="rol")
+@Table(name = "rol")
 public class Rol {
 
     @Id
-    @Column(name="idrol")
+    @Column(name = "idrol")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    Integer idrol;
-    @Column(nullable = false, name="nombre")
-    private
-    String nombre;
+    private Integer idrol;
+
+    @Column(nullable = false, name = "nombre")
+    private String nombre;
 
 
     public Integer getIdrol() {

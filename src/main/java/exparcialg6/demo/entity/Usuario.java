@@ -3,30 +3,29 @@ package exparcialg6.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
-    @Column(name="idusuario")
+    @Column(name = "idusuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    Integer idusuario;
-    @Column(nullable = false, name="nombre")
-    private
-    String nombre;
-    @Column(nullable = false, name="apellido")
-    private
-    String apellido;
-    @Column(nullable = false, name="dni")
-    private
-    Integer dni;
-    @Column(nullable = false, name="correo")
-    private
-    String correo;
+    private Integer idusuario;
+
+    @Column(nullable = false, name = "nombre")
+    private String nombre;
+
+    @Column(nullable = false, name = "apellido")
+    private String apellido;
+
+    @Column(nullable = false, name = "dni")
+    private Integer dni;
+
+    @Column(nullable = false, name = "correo")
+    private String correo;
+
     @ManyToOne
     @JoinColumn(name = "idrol")
-    private
-    Rol rol;
+    private Rol rol;
 
 
     public Integer getIdusuario() {

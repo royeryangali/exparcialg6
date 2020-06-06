@@ -4,18 +4,17 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="pedido")
+@Table(name = "pedido")
 public class Pedido {
     @Id
-    @Column(nullable = false, name="idpedido")
-    private
-    String idpedido;
-    @Column(nullable = false, name="total")
-    private
-    Float total;
-    @Column(nullable = false, name="fecha")
-    private
-    Date fecha;
+    @Column(nullable = false, name = "idpedido")
+    private String idpedido;
+
+    @Column(nullable = false, name = "total")
+    private Float total;
+
+    @Column(nullable = false, name = "fecha")
+    private Date fecha;
 
 
     public String getIdpedido() {

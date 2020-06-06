@@ -4,32 +4,31 @@ package exparcialg6.demo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="producto")
+@Table(name = "producto")
 public class Producto {
 
     @Id
-    @Column(name="idproducto")
+    @Column(name = "idproducto")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    Integer idartesano;
-    @Column(nullable = false, name="nombre")
-    private
-    String nombre;
-    @Column(nullable = false, name="descripcion")
-    private
-    String descripcion;
-    @Column(nullable = false, name="precio")
-    private
-    Double precio;
-    @Column(nullable = false, name="foto")
-    private
-    String foto;
-    @Column(nullable = false, name="stock")
-    private
-    Integer stock;
-    @Column(nullable = false, name="codigo")
-    private
-    String codigo;
+    private Integer idartesano;
+
+    @Column(nullable = false, name = "nombre")
+    private String nombre;
+
+    @Column(nullable = false, name = "descripcion")
+    private String descripcion;
+
+    @Column(nullable = false, name = "precio")
+    private Double precio;
+
+    @Column(nullable = false, name = "foto")
+    private String foto;
+
+    @Column(nullable = false, name = "stock")
+    private Integer stock;
+
+    @Column(nullable = false, name = "codigo")
+    private String codigo;
 
 
     public Integer getIdartesano() {

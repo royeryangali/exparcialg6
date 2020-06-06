@@ -9,19 +9,18 @@ public class Productoxpedido {
     @Id
     @Column(name="idproductoxpedido")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    Integer idproductoxpedido;
+    private Integer idproductoxpedido;
+
     @Column(nullable = false, name="cantidad")
-    private
-    Integer cantidad;
+    private Integer cantidad;
+
     @ManyToOne
     @JoinColumn(name = "idpedido")
-    private
-    Pedido pedido;
+    private Pedido pedido;
+
     @ManyToOne
     @JoinColumn(name = "idproducto")
-    private
-    Producto producto;
+    private Producto producto;
 
     public Integer getIdproductoxpedido() {
         return idproductoxpedido;
