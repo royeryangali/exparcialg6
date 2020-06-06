@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.4/examples/sign-in/signin.css"/>
-    <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
-    <script th:src="@{/js/popper.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <title>Lista de Productos</title>
-</head>
+<head th:replace="fragmento/navBar.html :: cabecera( title = 'Lista Productos')"></head>
 <body>
 <div class="container">
     <h2>Lista de Productos</h2>
@@ -23,7 +15,7 @@
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
 
-        <tr th:each="product, info : ${}">
+        <tr th:each="product, info : ${listaProductos}">
             <td></td>
             <ul>
                 <li th:text="${}">Aquí irá el código</li>

@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.4/examples/sign-in/signin.css"/>
-    <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
-    <script th:src="@{/js/popper.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <title>Producto</title>
-</head>
+<head th:replace="fragmento/navBar.html :: cabecera(title = 'Producto')"></head>
 <body>
 <div class="container">
     <h2>Producto</h2>
-    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
-        <thead>
+        <h3>Nombre del Producto</h3>
         <tr>
-            <th>#</th>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Descripción</th>
-            <th></th>
+            <div class="d-flex">
+                <div>
+                    <ul>
+                        <li >Aquí irá el código</li>
+                        <li >Aquí irá el nombre</li>
+                        <li >Aquí irá el precio</li>
+                        <li >Aquí irá el stock</li>
+                        <li >Aquí irá la descripción</li>
+                    </ul>
+                    <td><a class="btn btn-primary" th:href="@{}">Regresar</a></td>
+                    <td><a class="btn btn-danger" th:href="@{}">Agregar al carrito</a></td>
+                </div>
+                <div>
+                    <h1>AQUI DEBE IR LA FOTEX</h1>
+                </div>
+
+            </div>
         </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product, info : ${listaProductos}">
-            <td th:text="${info.index + 1}"></td>
-            <td th:text="${}"></td>
-            <td th:text="${}"></td>
-            <td th:text="${}"></td>
-            <td th:text="${}"></td>
-            <td><a class="btn btn-primary" th:href="@{}">Ver más</a></td>
-            <td><a class="btn btn-danger" th:href="@{}">Agregar al carrito</a></td>
-        </tr>
-        </tbody>
     </table>
 </div>
 </body>
