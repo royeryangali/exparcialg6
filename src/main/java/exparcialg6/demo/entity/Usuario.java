@@ -11,22 +11,32 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
     Integer idusuario;
+
     @Column(nullable = false, name="nombre")
     private
     String nombre;
+
     @Column(nullable = false, name="apellido")
     private
     String apellido;
+
     @Column(nullable = false, name="dni")
     private
     Integer dni;
+
     @Column(nullable = false, name="correo")
     private
     String correo;
+
     @Column(nullable = false, name="rol")
     private
     String rol;
 
+    @Column(nullable = false, name="activo")
+    private
+    int activo;
+
+    private String password;
 
     public Integer getIdusuario() {
         return idusuario;
@@ -75,5 +85,21 @@ public class Usuario {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public int getActivo() {
+        return activo;
+    }
+
+    public void setActivo(int activo) {
+        this.activo = activo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
