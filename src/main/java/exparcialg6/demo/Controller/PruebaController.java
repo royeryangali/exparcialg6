@@ -10,6 +10,6 @@ public class PruebaController {
     @GetMapping(value={"/",""})
     public String prueba(){
 
-        return "usuario/registerUser";
+        return "producto/listProduct";
     }
 }
