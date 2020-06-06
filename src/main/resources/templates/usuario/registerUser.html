@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.4/examples/sign-in/signin.css"/>
+    <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <title>Ingreso al sistema</title>
+</head>
+<body class="text-center">
+<div class="container theme-showcase">
+    <form class="form-signin" th:action="@{/processLogin}" method="post">
+        <h2 class="form-signin-heading">Registro de usuario</h2>
+        <br>
+        <br>
+        <div class="d-flex">
+            <h4>Nombre</h4><label for="nombre" class="sr-only"></label> &nbsp;
+            <input type="text" id="nombre" name="nombre" class="form-control" required autofocus>
+        </div>
+        <br>
+        <div class="d-flex">
+            <h4>Apellido</h4> <label for="apellido" class="sr-only"></label> &nbsp;
+            <input type="apellido" id="apellido" name="apellido" class="form-control" required>
+        </div>
+        <br>
+        <div class="d-flex">
+            <h4>DNI</h4> <label for="dni" class="sr-only"></label> &nbsp;
+            <input type="dni" id="dni" name="dni" class="form-control" required>
+        </div>
+        <br>
+        <div class="d-flex">
+            <h4>Correo</h4> <label for="correo" class="sr-only"></label> &nbsp;
+            <input type="correo" id="correo" name="correo" class="form-control" required>
+        </div>
+        <br>
+        <div class="d-flex">
+            <h4>Contraseña</h4> <label for="contrasena" class="sr-only"></label> &nbsp;
+            <input type="contrasena" id="contrasena" name="contrasena" class="form-control" required>
+        </div>
+        <br>
+        <div class="d-flex">
+            <h4>Confirmar Contraseña</h4> <label for="confirmadocontrasena" class="sr-only"></label> &nbsp;
+            <input type="confirmadocontrasena" id="confirmadocontrasena" name="confirmadocontrasena"
+                   class="form-control" required>
+        </div>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Registrar">
+    </form>
+    <br>
+    <br>
+    <div>
+        <a href="#" class="btn btn-default btn-lg active " role="button">Regresar</a>
+    </div>
+
+</div>
+</body>
+</html>
