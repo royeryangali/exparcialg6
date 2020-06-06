@@ -12,16 +12,32 @@
 <body class="text-center">
 <div class="container theme-showcase">
     <form class="form-signin" th:action="@{/processLogin}" method="post">
-        <h3 class="form-signin-heading">Acceso</h3>
+        <h2 class="form-signin-heading">Ingreso al sistema</h2>
+        <div >
+            <h4>Usuario</h4> <label for="username" class="sr-only">Usuario</label>
+            <input type="text" id="username" name="username" class="form-control" required autofocus>
+        </div>
+        <div>
+            <h4>Password</h4> <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required>
 
-        <label for="username" class="sr-only">Correo</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required autofocus>
-        <label for="password" class="sr-only">Contraseña</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox">Recordarme</label>
+        </div>
 
         <h4 th:if="${param.error}" class="form-signin-heading" style="color:red">Acceso denegado</h4>
-        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Ingresar"></input>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Ingresar">
     </form>
+    <br>
+    <br>
+    <div>
+        <a href="#" class="btn btn-default btn-lg active " role="button">Recuperar Contraseña</a>
+    </div>
+   <div>
+       <a href="#" class="btn btn-default btn-lg active" role="button">Registrarse</a>
+   </div>
+
 </div>
 </body>
 </html>
