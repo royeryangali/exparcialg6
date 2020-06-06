@@ -7,33 +7,35 @@
     <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
-    <title>Lista de Productos</title>
+    <title>Producto</title>
 </head>
 <body>
 <div class="container">
-    <h2>Lista de Productos</h2>
-    <form class="form-inline d-flex mb-5" th:action="@{/}" method="post">
-        <div class="d-flex">
-            <input class="form-control form-control-sm mr-3 w-75 d-flex justify-content-center" type="text"
-                   placeholder="Search" aria-label="Search">
-            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Buscar">
-        </div>
-    </form>
-
+    <h2>Producto</h2>
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
-
-        <tr th:each="product, info : ${}">
-            <td></td>
-            <ul>
-                <li th:text="${}">Aquí irá el código</li>
-                <li th:text="${}">Aquí irá el nombre</li>
-                <li th:text="${}">Aquí irá el precio</li>
-                <li th:text="${}">Aquí irá el stock</li>
-            </ul>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Descripción</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product, info : ${listaProductos}">
+            <td th:text="${info.index + 1}"></td>
+            <td th:text="${}"></td>
+            <td th:text="${}"></td>
+            <td th:text="${}"></td>
+            <td th:text="${}"></td>
             <td><a class="btn btn-primary" th:href="@{}">Ver más</a></td>
             <td><a class="btn btn-danger" th:href="@{}">Agregar al carrito</a></td>
         </tr>
+        </tbody>
     </table>
 </div>
 </body>
