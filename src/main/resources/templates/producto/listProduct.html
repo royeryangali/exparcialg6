@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.4/examples/sign-in/signin.css"/>
+    <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <title>Ingreso al sistema</title>
+</head>
 <body>
 <div class="container">
-
     <h2>Lista de Productos</h2>
-    <form class="form-inline d-flex justify-content-center mb-5">
-        <input class="form-control form-control-sm mr-3 w-75 d-flex justify-content-center" type="text"
-               placeholder="Search" aria-label="Search">
-        <i class="fas fa-search active" aria-hidden="true"></i>
+    <form class="form-inline d-flex mb-5" th:action="@{/}" method="post">
+        <div class="d-flex">
+            <input class="form-control form-control-sm mr-3 w-75 d-flex justify-content-center" type="text"
+                   placeholder="Search" aria-label="Search">
+            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Buscar">
+        </div>
     </form>
+
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
         <thead>
