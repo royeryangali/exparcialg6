@@ -29,8 +29,8 @@
                 </td>
             </table>
             <table>
-                <a class="btn btn-primary" th:href="@{'/invitado/vermas' + '?id=' + ${producto.idproducto}}">Ver más</a>
-                <a class="btn btn-danger" th:href="@{'/invitado/delete' + '?id=' + ${shipper.shipperId}}">Agregar al carrito</a>
+                <a class="btn btn-primary" th:href="@{'/invitado/listarVerMas' + '?id=' + ${producto.idproducto}}">Ver más</a>
+                <a class="btn btn-danger" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
             </table>
         </tr>
     </table>
