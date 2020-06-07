@@ -13,15 +13,15 @@
 <div class="container theme-showcase">
     <form class="form-signin" th:action="@{/processLogin}" method="post">
         <h3 class="form-signin-heading">Recuperar Contraseña</h3>
-        <h4>Correo</h4> <label for="username" class="sr-only">Usuario</label>
-        <input type="text" id="username" name="username" class="form-control" required autofocus>
+        <h4>Correo</h4> <label for="correo" class="sr-only">Usuario</label>
+        <input type="text" id="correo" name="correo" class="form-control" required autofocus>
         <br>
-        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Enviar Contraseña">
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Recuperar Contraseña">
     </form>
     <br>
     <br>
     <div>
-        <a href="#" class="btn btn-default btn-lg active " role="button">Regresar</a>
+        <a  th:href="@{'/invitado/listarProductos'}" class="btn btn-default btn-lg active " role="button">Regresar</a>
     </div>
 </div>
 </body>

@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("correo")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/redirectByRole", true);
+
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/invitado/listarProductos").deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
         http.authorizeRequests().antMatchers("/admin", "/admin/**").hasAuthority("administrador");

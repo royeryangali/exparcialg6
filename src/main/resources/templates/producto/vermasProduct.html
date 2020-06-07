@@ -3,6 +3,7 @@
 <head th:replace="fragmento/navBar.html :: cabecera(title = 'Producto - Ver más')"></head>
 <body>
 <div class="container">
+    <nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Producto')"></nav>
     <h2>Producto - Ver más</h2>
     <table class="table">
         <h3 th:text="${producto.nombre}"></h3>
