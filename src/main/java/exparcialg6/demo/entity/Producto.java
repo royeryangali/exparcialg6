@@ -31,13 +31,7 @@ public class Producto {
     private String codigo;
 
 
-    public Integer getIdartesano() {
-        return idproducto;
-    }
 
-    public void setIdartesano(Integer idartesano) {
-        this.idproducto = idartesano;
-    }
 
     public String getNombre() {
         return nombre;
@@ -85,5 +79,13 @@ public class Producto {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Integer getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(Integer idproducto) {
+        this.idproducto = idproducto;
     }
 }
