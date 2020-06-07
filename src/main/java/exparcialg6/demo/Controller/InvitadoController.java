@@ -25,16 +25,22 @@ public class InvitadoController {
             return "producto/listProduct";
     }
 
-    @GetMapping("/listarVerMas")
+    @GetMapping("/listarVerMas") // VER UN SOLO PRODUCTO
     public String VerMas( Model model,@RequestParam("id") int id ) {
         model.addAttribute("producto", productoRepository.findById(id).get());
         return "producto/vermasProduct";
     }
 
 
+    @GetMapping("/registrarse") // MUESTRA LA PAGINA DE REGISTRO DE USUARIO REGISTRADO
+    public String registrarse( Model model) {
+        return "usuario/registerUser";
+    }
 
-
-
+    @GetMapping("/recuperar") // MUESTRA LA PAGINA DE RECUPERAR CONTRA
+    public String recuperar( Model model) {
+        return "login/recoveryForm";
+    }
 
 
 
