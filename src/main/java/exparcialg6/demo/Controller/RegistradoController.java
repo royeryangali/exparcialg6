@@ -6,6 +6,7 @@ import exparcialg6.demo.entity.Producto;
 import exparcialg6.demo.repository.PedidoRepository;
 import exparcialg6.demo.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -122,8 +123,8 @@ public class RegistradoController {
     public int repetir(ArrayList<Producto> carrito, Producto o) {
         int a = 0;
         for (int i = 0; i < carrito.size(); i++) {
-            if((int) carrito.get(i).getIdproducto() == (int) o.getIdproducto()){
-                a = a +1;
+            if ((int) carrito.get(i).getIdproducto() == (int) o.getIdproducto()) {
+                a = a + 1;
             }
         }
 
@@ -163,41 +164,79 @@ public class RegistradoController {
 
     @PostMapping("guardarPedido")
     public String guardarPedido(@ModelAttribute("tarjeta") String tarjeta,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes attr,
-                                  Model model,
-                                  HttpSession session) {
+                                BindingResult bindingResult,
+                                RedirectAttributes attr,
+                                Model model,
+                                HttpSession session) {
 
-            //VALIDAR LA TARJETA
-            if(ComprobarTarjeta(tarjeta)){
+        //VALIDAR LA TARJETA
+        if (ComprobarTarjeta(tarjeta)) {
 
-                Pedido pedido = new Pedido();
-                LocalDate date = java.time.LocalDate.now();
-                pedido.setFecha(date);
-                pedido.setTotal((float) session.getAttribute("total"));
-                String codigo;
-                String fecha = String.valueOf(date.getDayOfMonth())  + String.valueOf(date.getMonthValue()) +  String.valueOf(date.getYear());
-                codigo = "PE" + fecha + (pedidoRepository.findAll().size() + 1 );
-                pedido.setCodigo(codigo);
-                pedidoRepository.save(pedido);
-                attr.addFlashAttribute("msg", "Pedido realizado exitosamente");
-            }else{
-                attr.addFlashAttribute("msg", "Error en el numero de tarjeta ingresado");
-                return "redirect:/registrado/Checkout";
-            }
-            return "redirect:/invitado/listarProductos";
+            Pedido pedido = new Pedido();
+            LocalDate date = java.time.LocalDate.now();
+            pedido.setFecha(date);
+            pedido.setTotal((float) session.getAttribute("total"));
+            String codigo;
+            String fecha = String.valueOf(date.getDayOfMonth()) + String.valueOf(date.getMonthValue()) + String.valueOf(date.getYear());
+            codigo = "PE" + fecha + (pedidoRepository.findAll().size() + 1);
+            pedido.setCodigo(codigo);
+            pedidoRepository.save(pedido);
+            attr.addFlashAttribute("msg", "Pedido realizado exitosamente");
+        } else {
+            attr.addFlashAttribute("msg", "Error en el numero de tarjeta ingresado");
+            return "redirect:/registrado/Checkout";
+        }
+        return "redirect:/invitado/listarProductos";
 
     }
 
 
-    public boolean ComprobarTarjeta(String Tarjeta){
-        if(Tarjeta != null){
-            if(Tarjeta.matches("^\\d{16}$")){
-                String mochado = Tarjeta.substring(0,15);
-                return true;
+    public boolean ComprobarTarjeta(String Tarjeta) {
+        if (Tarjeta != null) {
+            if (Tarjeta.matches("^\\d{16}$")) {
+                String mochado = Tarjeta.substring(0, 15); // quita el ultimo
+                StringBuilder input1 = new StringBuilder(); //EMPIEZA A REVERSE
+                input1.append(mochado);
+                String volteado = input1.reverse().toString(); // Fin voltear
+                int a1 = Integer.parseInt(volteado.substring(0, 1));
+                int a2 = Integer.parseInt(volteado.substring(1, 2));
+                int a3 = Integer.parseInt(volteado.substring(2, 3));
+                int a4 = Integer.parseInt(volteado.substring(3, 4));
+                int a5 = Integer.parseInt(volteado.substring(4, 5));
+                int a6 = Integer.parseInt(volteado.substring(5, 6));
+                int a7 = Integer.parseInt(volteado.substring(6, 7));
+                int a8 = Integer.parseInt(volteado.substring(7, 8));
+                int a9 = Integer.parseInt(volteado.substring(8, 9));
+                int a10 = Integer.parseInt(volteado.substring(9, 10));
+                int a11 = Integer.parseInt(volteado.substring(10, 11));
+                int a12 = Integer.parseInt(volteado.substring(11, 12));
+                int a13 = Integer.parseInt(volteado.substring(12, 13));
+                int a14 = Integer.parseInt(volteado.substring(13, 14));
+                int a15 = Integer.parseInt(volteado.substring(14));
+                int[] temp = {a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15};
+                int sumador = 0;
+                for (int entero : temp) {
+                    if (entero % 2 == 1) { // inicio *2 si impar
+                        entero = entero * 2;
+                    } //fin *2 si impar
+                    if (entero > 9) {
+                        entero = entero - 9;
+                    }
+                    sumador = sumador + entero;
+                }
+                boolean bool = ((10 - (sumador % 10)) % 10) == Integer.parseInt(Tarjeta.substring(15));
+                if (bool) {
+                    return true;
+                } else {
+                    return false;
+                }
 
-            }else {return false;}
-        }else{return false;}
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 }
