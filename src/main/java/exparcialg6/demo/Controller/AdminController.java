@@ -31,6 +31,7 @@ public class AdminController {
 
     @GetMapping("/new")
     public String nuevoGestor(@ModelAttribute("usuario") Usuario usuario, Model model) {
+        usuario.setIdusuario(0);
         return "admin/A-Form";
     }
 
@@ -41,6 +42,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/A-Form";
         } else {
+
             if (usuario.getIdusuario() == 0) {
                 attr.addFlashAttribute("msg", "Gestor creado exitosamente");
                 usuario.setActivo(1);

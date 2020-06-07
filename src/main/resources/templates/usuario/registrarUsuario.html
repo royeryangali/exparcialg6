@@ -11,39 +11,38 @@
 </head>
 <body class="text-center">
 <div class="container theme-showcase">
-    <form class="form-signin" th:action="@{/processLogin}" method="post">
+    <form method="post" th:action="@{/guardarUsuario}" th:object="${usuario}">
         <h2 class="form-signin-heading">Registro de usuario</h2>
         <br>
         <br>
         <div class="d-flex">
             <h5>Nombre</h5><label for="nombre" class="sr-only"></label> &nbsp;
-            <input type="text" id="nombre" name="nombre" class="form-control" required autofocus>
-        </div>
+            <input type="text" th:field="${usuario.nombre}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error</div>
+        </div> 
         <br>
         <div class="d-flex">
             <h5>Apellido</h5> <label for="apellido" class="sr-only"></label> &nbsp;
-            <input type="apellido" id="apellido" name="apellido" class="form-control" required>
+            <input type="text" th:field="${usuario.apellido}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"}></div>
         </div>
         <br>
         <div class="d-flex">
             <h5>DNI</h5> <label for="dni" class="sr-only"></label> &nbsp;
-            <input type="dni" id="dni" name="dni" class="form-control" required>
+            <input type="text" th:field="${usuario.dni}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"}></div>
         </div>
         <br>
         <div class="d-flex">
             <h5>Correo</h5> <label for="correo" class="sr-only"></label> &nbsp;
-            <input type="correo" id="correo" name="correo" class="form-control" required>
+            <input type="text" th:field="${usuario.correo}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"}></div>
         </div>
         <br>
         <div class="d-flex">
-            <h5>Contraseña</h5> <label for="contrasena" class="sr-only"></label> &nbsp;
-            <input type="contrasena" id="contrasena" name="contrasena" class="form-control" required>
-        </div>
-        <br>
-        <div class="d-flex">
-            <h5>Confirmar contraseña</h5> <label for="confirmadocontrasena" class="sr-only"></label> &nbsp;
-            <input type="confirmadocontrasena" id="confirmadocontrasena" name="confirmadocontrasena"
-                   class="form-control" required>
+            <h5>Contraseña</h5> <label for="password" class="sr-only"></label> &nbsp;
+            <input type="password" th:field="${usuario.password}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"}></div>
         </div>
         <br>
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Registrar">

@@ -1,6 +1,7 @@
 package exparcialg6.demo.Controller;
 
 
+import exparcialg6.demo.entity.Usuario;
 import exparcialg6.demo.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,8 @@ public class InvitadoController {
 
 
     @GetMapping("/registrarse") // MUESTRA LA PAGINA DE REGISTRO DE USUARIO REGISTRADO
-    public String registrarse( Model model) {
-        return "usuario/registerUser";
+    public String registrarse(@ModelAttribute("usuario") Usuario usuario) {
+        return "usuario/registrarUsuario";
     }
 
     @GetMapping("/recuperar") // MUESTRA LA PAGINA DE RECUPERAR CONTRA

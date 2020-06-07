@@ -27,14 +27,18 @@ public class Usuario implements Serializable {
     String apellido;
 
     @NotBlank
-    @Digits(integer = 8, fraction = 0)
-    @Positive
+    @Digits(integer = 8, fraction = 0, message = "Debe ser entero y de 8 digitos")
+    @Positive(message = "Debe ser positivo")
     @Column(nullable = false, name="dni")
     private Integer dni;
 
     @Column(name="correo")
     private
     String correo;
+
+    @Column(name="password")
+    private
+    String password;
 
     @Column(name="rol")
     private
@@ -44,7 +48,13 @@ public class Usuario implements Serializable {
     private
     int activo;
 
-    private String password;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Integer getIdusuario() {
         return idusuario;
@@ -86,7 +96,6 @@ public class Usuario implements Serializable {
         this.correo = correo;
     }
 
-
     public String getRol() {
         return rol;
     }
@@ -101,13 +110,5 @@ public class Usuario implements Serializable {
 
     public void setActivo(int activo) {
         this.activo = activo;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

@@ -34,12 +34,12 @@
         </div>
         <div class="form-group col-6">
             <label for="correo">Correo</label>
-            <input type="text" th:value="${usuario.correo}" class="form-control">
+            <input type="text" th:field="${usuario.correo}" class="form-control">
             <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
         </div>
     </div>
-
-
+    <input type="hidden" name="rol" th:value="${usuario.rol}"/>
+    <input type="hidden" name="password" th:value="${usuario.password}"/>
     <a th:href="@{'/admin'}" class="btn btn-danger">Cancelar</a>
     <button type="submit" class="btn btn-primary"
             th:text="${usuario.idusuario == 0?'Registrar':'Actualizar'}"></button>
