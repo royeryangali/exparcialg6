@@ -22,7 +22,7 @@ public class Producto  implements Serializable {
     @Column(nullable = false, name = "precio")
     private Double precio;
 
-    @Column(nullable = false, name = "foto")
+    @Column(name = "foto")
     private byte[] foto;
 
     @Column(nullable = false, name = "stock")
@@ -30,6 +30,12 @@ public class Producto  implements Serializable {
 
     @Column(nullable = false, name = "codigo")
     private String codigo;
+
+    @Column(name = "fotonombre")
+    private String fotonombre;
+
+    @Column(name = "fotocontenttype")
+    private String fotocontenttype;
 
 
 
@@ -90,5 +96,21 @@ public class Producto  implements Serializable {
 
     public void setFoto(byte[] foto) {
         this.foto = foto;
+    }
+
+    public String getFotonombre() {
+        return fotonombre;
+    }
+
+    public void setFotonombre(String fotonombre) {
+        this.fotonombre = fotonombre;
+    }
+
+    public String getFotocontenttype() {
+        return fotocontenttype;
+    }
+
+    public void setFotocontenttype(String fotocontenttype) {
+        this.fotocontenttype = fotocontenttype;
     }
 }

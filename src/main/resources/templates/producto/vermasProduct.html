@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+
 <head th:replace="fragmento/navBar.html :: cabecera(title = 'Producto - Ver más')"></head>
 <body>
 <div class="container">
     <nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Producto')"></nav>
     <h2>Producto - Ver más</h2>
+    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se agregó el producto al carrito</h4>
     <table class="table">
         <h3 th:text="${producto.nombre}"></h3>
         <tr>
@@ -24,7 +26,9 @@
                 </table>
 
                 <td><a class="btn btn-primary" th:href="@{'/invitado/listarProductos'}"> Regresar </a></td>
-                <td><a class="btn btn-danger" th:href="@{'/registrado/AgregarCarritoVerMas' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a></td>
+                <a class="btn btn-dark" sec:authorize="hasAnyAuthority('gestor')"  th:href="@{'/gestor/editarProducto' + '?id=' + ${producto.idproducto}}">Editar Producto</a>
+                <a class="btn btn-danger"  sec:authorize="hasAnyAuthority('registrado')" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+                <a class="btn btn-danger"  sec:authorize="isAnonymous()" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
 
             </div>
         </tr>
