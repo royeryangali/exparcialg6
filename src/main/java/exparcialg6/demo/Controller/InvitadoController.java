@@ -20,12 +20,16 @@ public class InvitadoController {
 
 
     @GetMapping("listarProductos")  // LISTAR PRODUCTOS
-    public String editarUsuarioSede( Model model) {
+    public String listarProductos( Model model) {
             model.addAttribute("listaProductos", productoRepository.findAll());
             return "producto/listProduct";
     }
 
-
+    @GetMapping("/listarVerMas")
+    public String VerMas( Model model,@RequestParam("id") int id ) {
+        model.addAttribute("listaProductos", productoRepository.findById(id));
+        return "producto/listProduct";
+    }
 
 
 
