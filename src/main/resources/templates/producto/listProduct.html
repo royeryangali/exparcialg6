@@ -12,11 +12,9 @@
             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Buscar">
         </div>
     </form>
-
-    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
 
-        <tr th:each="product, info : ${listaProductos}">
+        <tr th:each="producto: ${listaProductos}">
             <table>
                 <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
                 <td>
