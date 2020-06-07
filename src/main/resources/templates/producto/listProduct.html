@@ -16,7 +16,7 @@
 
         <tr th:each="producto: ${listaProductos}">
             <table>
-                <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
+                <td><img th:height="160" th:width="160" th:src="@{|fileUploaded/${producto.id}|}"></td>
                 <td>
                     <ul>
                         <li th:text="${producto.codigo}">Aquí irá el código</li>
