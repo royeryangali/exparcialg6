@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragmento/navBar.html :: cabecera(title = 'Producto')"></head>
+<head th:replace="fragmento/navBar.html :: cabecera(title = 'Producto - Ver más')"></head>
 <body>
 <div class="container">
-    <h2>Producto</h2>
+    <h2>Producto - Ver más</h2>
     <table class="table">
-        <h3>Nombre del Producto</h3>
+        <h3 th:text="${producto.nombre}"></h3>
         <tr>
             <div>
                 <table>
                     <tr>
                         <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
-                        <td><ul>
-                            <li>Aquí irá el código</li>
-                            <li>Aquí irá el nombre</li>
-                            <li>Aquí irá el precio</li>
-                            <li>Aquí irá el stock</li>
-                            <li>Aquí irá la descripción</li>
-                        </ul></td>
+                        <td>
+                            <ul>
+                                <li th:text=" ${producto.codigo}">Aquí irá el código</li>
+                                <li th:text="${producto.precio}">Aquí irá el precio</li>
+                                <li th:text=" ${producto.stock}">Aquí irá el stock</li>
+                                <li th:text="${producto.descripcion}">Aquí irá la descripción</li>
+                            </ul>
+                        </td>
                     </tr>
-
                 </table>
 
-                <td><a class="btn btn-primary" th:href="@{}">Regresar</a></td>
-                <td><a class="btn btn-danger" th:href="@{}">Agregar al carrito</a></td>
+                <td><a class="btn btn-primary" th:href="@{'/invitado/listarVerMas'}"> Regresar </a></td>
+                <td><a class="btn btn-danger" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a></td>
 
 
             </div>

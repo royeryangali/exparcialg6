@@ -12,25 +12,23 @@
             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Buscar">
         </div>
     </form>
-
-    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
 
-        <tr th:each="product, info : ${listaProductos}">
+        <tr th:each="producto: ${listaProductos}">
             <table>
                 <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
                 <td>
                     <ul>
-                        <li>Aquí irá el código</li>
-                        <li>Aquí irá el nombre</li>
-                        <li>Aquí irá el precio</li>
-                        <li>Aquí irá el stock</li>
+                        <li th:text="${producto.codigo}">Aquí irá el código</li>
+                        <li th:text="${producto.nombre}">Aquí irá el nombre</li>
+                        <li th:text="${producto.precio}">Aquí irá el precio</li>
+                        <li th:text="${producto.stock}">Aquí irá el stock</li>
                     </ul>
                 </td>
             </table>
             <table>
-                <a class="btn btn-primary" th:href="@{}">Ver más</a>
-                <a class="btn btn-danger" th:href="@{}">Agregar al carrito</a>
+                <a class="btn btn-primary" th:href="@{'/invitado/listarVerMas' + '?id=' + ${producto.idproducto}}">Ver más</a>
+                <a class="btn btn-danger" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
             </table>
         </tr>
     </table>
