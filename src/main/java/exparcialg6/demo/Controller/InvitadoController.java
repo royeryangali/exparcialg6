@@ -27,8 +27,8 @@ public class InvitadoController {
 
     @GetMapping("/listarVerMas")
     public String VerMas( Model model,@RequestParam("id") int id ) {
-        model.addAttribute("listaProductos", productoRepository.findById(id));
-        return "producto/listProduct";
+        model.addAttribute("producto", productoRepository.findById(id));
+        return "producto/vermasProduct";
     }
 
 
