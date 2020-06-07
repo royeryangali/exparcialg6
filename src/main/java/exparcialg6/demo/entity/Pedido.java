@@ -1,6 +1,7 @@
 package exparcialg6.demo.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class Pedido {
 
     @Column(nullable = false, name="fecha")
     private
-    Date fecha;
+    LocalDate fecha;
 
     @Column(nullable = false, name="codigo")
     private
@@ -40,13 +41,7 @@ public class Pedido {
         this.total = total;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -54,5 +49,13 @@ public class Pedido {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 }
