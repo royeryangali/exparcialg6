@@ -23,7 +23,7 @@ public class Producto  implements Serializable {
     private Double precio;
 
     @Column(nullable = false, name = "foto")
-    private String foto;
+    private byte[] foto;
 
     @Column(nullable = false, name = "stock")
     private Integer stock;
@@ -58,13 +58,7 @@ public class Producto  implements Serializable {
         this.precio = precio;
     }
 
-    public String getFoto() {
-        return foto;
-    }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 
     public Integer getStock() {
         return stock;
@@ -88,5 +82,13 @@ public class Producto  implements Serializable {
 
     public void setIdproducto(Integer idproducto) {
         this.idproducto = idproducto;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 }

@@ -19,7 +19,7 @@ public class InvitadoController {
 
 
 
-    @GetMapping("listarProductos")  // LISTAR PRODUCTOS
+    @GetMapping(value={"listarProductos","","/"})  // LISTAR PRODUCTOS
     public String listarProductos( Model model) {
             model.addAttribute("listaProductos", productoRepository.findAll());
             return "producto/listProduct";

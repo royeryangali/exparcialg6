@@ -1,5 +1,6 @@
 package exparcialg6.demo.Controller;
 
+import exparcialg6.demo.entity.Carrito;
 import exparcialg6.demo.entity.Producto;
 import exparcialg6.demo.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +86,44 @@ public class RegistradoController {
             return "producto/listProduct";
         }
     }
+
+
+
+
+
+
+
+        //VER CARRITO
+    @GetMapping("VerCarrito")public String VerCarrito(Model model, HttpSession session) {
+        ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
+        List productos = productoRepository.findAll();
+        ArrayList<exparcialg6.demo.entity.Carrito> lista = new ArrayList<exparcialg6.demo.entity.Carrito>();
+
+        int veces = 0;
+        for (int i = 0; i < productos.size(); i++) {
+
+            veces = Collections.frequency(Carrito, productos.get(i));
+            if(veces > 0){
+                exparcialg6.demo.entity.Carrito carrito = new Carrito();
+                carrito.setCantidad(veces);
+                carrito.setProducto((Producto) productos.get(i));
+                lista.add(carrito);
+            }
+        }
+        model.addAttribute("lista", lista); // DA UNA LISTA DEL ENTITY CARRITO
+        //TODO Ordenar la lista en orden del total a gastar
+        return "vercarrito"; //TODO PONER EL NOMBRE DEL HTML PARA VER EL CARRITO
+
+
+
+
+
+    }
+
+
+
+
+
 
 
 }
