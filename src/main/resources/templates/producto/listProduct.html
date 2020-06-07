@@ -17,15 +17,21 @@
     <table class="table">
 
         <tr th:each="product, info : ${listaProductos}">
-            <td></td>
-            <ul>
-                <li th:text="${}">Aquí irá el código</li>
-                <li th:text="${}">Aquí irá el nombre</li>
-                <li th:text="${}">Aquí irá el precio</li>
-                <li th:text="${}">Aquí irá el stock</li>
-            </ul>
-            <td><a class="btn btn-primary" th:href="@{}">Ver más</a></td>
-            <td><a class="btn btn-danger" th:href="@{}">Agregar al carrito</a></td>
+            <table>
+                <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
+                <td>
+                    <ul>
+                        <li>Aquí irá el código</li>
+                        <li>Aquí irá el nombre</li>
+                        <li>Aquí irá el precio</li>
+                        <li>Aquí irá el stock</li>
+                    </ul>
+                </td>
+            </table>
+            <table>
+                <a class="btn btn-primary" th:href="@{}">Ver más</a>
+                <a class="btn btn-danger" th:href="@{}">Agregar al carrito</a>
+            </table>
         </tr>
     </table>
 </div>
