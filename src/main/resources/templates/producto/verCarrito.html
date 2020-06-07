@@ -4,28 +4,27 @@
 <body>
 <div class="container">
     <nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Check Out del Carrito')"></nav>
-    <h2>Producto - Ver más</h2>
-    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se agregó el producto al carrito</h4>
+    <h2>Chek Out de Compras</h2>
     <table class="table">
-        <h3 th:text="${producto.nombre}"></h3>
         <tr>
             <div>
                 <table>
-                    <tr>
+                    <tr th:each="productoCarrito : ${lista}">
                         <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
                         <td>
                             <ul>
-                                <li th:text=" ${producto.codigo}">Aquí irá el código</li>
-                                <li th:text="${producto.precio}">Aquí irá el precio</li>
-                                <li th:text=" ${producto.stock}">Aquí irá el stock</li>
-                                <li th:text="${producto.descripcion}">Aquí irá la descripción</li>
+                                <li th:text="|'El Código del producto es: '   ${productoCarrito.producto.codigo}|">Aquí irá el código</li>
+                                <li th:text="|'Nombre del producto: '   ${productoCarrito.producto.nombre}|">Aquí irá el nombre</li>
+                                <li th:text="|'Precio: '  ${productoCarrito.producto.precio}|">Aquí irá el precio</li>
+                                <li th:text="|'Cantidad: ' ${productoCarrito.cantidad}|">Aquí irá la cantidad</li>
+                                <li th:text="|'Subtotal: '  ${productoCarrito.cantidad * productoCarrito.producto.precio}|">Aquí el subtotal</li>
                             </ul>
                         </td>
                     </tr>
+                    <h3 th:text="${session.total}"></h3>
                 </table>
 
-                <td><a class="btn btn-primary" th:href="@{'/invitado/listarProductos'}"> Regresar </a></td>
-                <td><a class="btn btn-danger" th:href="@{'/registrado/AgregarCarritoVerMas' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a></td>
+                <td><a class="alert-success" th:href="@{'/invitado/listarProductos'}"> Proceder a comprar </a></td>
 
             </div>
         </tr>
