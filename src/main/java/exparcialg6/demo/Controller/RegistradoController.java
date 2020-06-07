@@ -177,13 +177,15 @@ public class RegistradoController {
     public boolean ComprobarTarjeta(String Tarjeta){
         if(Tarjeta != null){
             if(Tarjeta.matches("^\\d{16}$")){
-                Tarjeta.substring()
+                String mochado = Tarjeta.substring(0,15);
+                return true;
 
-
+            }else {
+                return false;
             }
+        }else{
+            return false;
         }
-
-
     }
 
 }
