@@ -39,7 +39,6 @@ public class LoginController {
             session.setAttribute("user", usuarioLogueado);
             ArrayList<Producto> Carrito = new ArrayList<Producto>();
             session.setAttribute("carrito", Carrito);
-            session.setAttribute("Tamano", 0);
             return "redirect:/invitado/listarProductos";
         } else if (rol.equalsIgnoreCase("gestor")) {
             Usuario usuarioLogueado = usuarioRepository.findByCorreo(auth.getName());

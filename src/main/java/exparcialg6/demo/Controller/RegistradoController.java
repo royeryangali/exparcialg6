@@ -38,7 +38,6 @@ public class RegistradoController {
 
             Carrito.add(producto.get());
             session.setAttribute("carrito", Carrito);
-            session.setAttribute("Tamano", Carrito.size());
             model.addAttribute("producto", productoRepository.findById(id).get());
             model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
             System.out.println("Luego de agregar el carrito tiene " + (a+1) + " " + producto.get().getNombre() + "s");
@@ -71,7 +70,6 @@ public class RegistradoController {
 
             Carrito.add(producto.get());
             session.setAttribute("carrito", Carrito);
-            session.setAttribute("Tamano", Carrito.size());
             model.addAttribute("listaProductos", productoRepository.findAll());
             model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
             System.out.println("Luego de agregar el carrito tiene " + (a+1) + " " + producto.get().getNombre() + "s");
