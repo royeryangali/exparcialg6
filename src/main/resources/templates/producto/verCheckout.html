@@ -14,15 +14,12 @@
     <div style="text-align: center;" th:text="|Datos de Pago: |"><h2></h2></div>
     <br>
     <div style="text-align: center;">
-        <form class="form-inline d-flex mb-5" th:action="@{/}" method="post">
-            <div class="d-flex">
-                <h4 > -> Tarjeta de crédito </h4>
-                <input class="form-control form-control-sm mr-3 w-75 d-flex justify-content-center" type="text"
-                       placeholder="" aria-label="Search">
+        <form style="text-align: center;" th:action="@{/}" method="post">
+            <div style="text-align: center;">
+                <h4> -> Tarjeta de crédito </h4>
+                <input type="text" placeholder="" aria-label="Search">
                 <br>
-
             </div>
-
             <input type="submit" class="btn btn-danger" value="Pagar">
         </form>
     </div>
