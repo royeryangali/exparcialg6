@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/invitado")
@@ -20,7 +21,7 @@ public class InvitadoController {
 
 
     @GetMapping(value={"listarProductos","","/"})  // LISTAR PRODUCTOS
-    public String listarProductos( Model model) {
+    public String listarProductos( Model model, RedirectAttributes attr) {
             model.addAttribute("listaProductos", productoRepository.findAll());
             return "producto/listProduct";
     }
