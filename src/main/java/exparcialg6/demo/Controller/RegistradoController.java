@@ -81,7 +81,8 @@ public class RegistradoController {
             int veces = 0;
             for (int i = 0; i < productos.size(); i++) {
 
-                veces = Collections.frequency(Carrito, productos.get(i));
+
+                veces = repetir(Carrito, (Producto) productos.get(i));
                 if (veces > 0) {
                     exparcialg6.demo.entity.Carrito carrito = new Carrito();
                     carrito.setCantidad(veces);
@@ -99,8 +100,13 @@ public class RegistradoController {
             model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
             System.out.println("Luego de agregar el carrito tiene " + (a + 1) + " " + producto.get().getNombre() + "s");
             System.out.println("Tamano de carrito: " + Carrito.size());
-
-
+            System.out.println("debug del producto");
+            System.out.println("total: " + total);
+            System.out.println(producto.get().getNombre());
+            System.out.println(producto.get().getPrecio());
+            System.out.println(producto.get().getCodigo());
+            System.out.println(producto.get().getDescripcion());
+            System.out.println(producto.get().getStock());
 
             return "producto/listProduct";
 
@@ -113,6 +119,17 @@ public class RegistradoController {
         }
     }
 
+    public int repetir(ArrayList<Producto> carrito, Producto o) {
+        int a = 0;
+        for (int i = 0; i < carrito.size(); i++) {
+            if((int) carrito.get(i).getIdproducto() == (int) o.getIdproducto()){
+                a = a +1;
+            }
+        }
+
+        return a;
+    }
+
 
     //VER CARRITO
     @GetMapping("VerCarrito")
@@ -120,12 +137,11 @@ public class RegistradoController {
         ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
         List productos = productoRepository.findAll();
         ArrayList<exparcialg6.demo.entity.Carrito> lista = new ArrayList<exparcialg6.demo.entity.Carrito>();
-
         double total = 0.0;
         int veces = 0;
         for (int i = 0; i < productos.size(); i++) {
 
-            veces = Collections.frequency(Carrito, productos.get(i));
+            veces = repetir(Carrito, (Producto) productos.get(i));
             if (veces > 0) {
                 exparcialg6.demo.entity.Carrito carrito = new Carrito();
                 carrito.setCantidad(veces);
@@ -180,12 +196,8 @@ public class RegistradoController {
                 String mochado = Tarjeta.substring(0,15);
                 return true;
 
-            }else {
-                return false;
-            }
-        }else{
-            return false;
-        }
+            }else {return false;}
+        }else{return false;}
     }
 
 }
