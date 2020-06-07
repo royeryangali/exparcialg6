@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+
 <head th:replace="fragmento/navBar.html :: cabecera( title = 'Lista Productos')"></head>
 <body>
 <div class="container">
@@ -31,7 +32,10 @@
             </table>
             <table>
                 <a class="btn btn-primary" th:href="@{'/invitado/listarVerMas' + '?id=' + ${producto.idproducto}}">Ver más</a>
-                <a class="btn btn-danger" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+                <a class="btn btn-dark" sec:authorize="hasAnyAuthority('gestor')"  th:href="@{'/gestor/editarProducto' + '?id=' + ${producto.idproducto}}">Editar Producto</a>
+                <a class="btn btn-danger"  sec:authorize="hasAnyAuthority('registrado')" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+                <a class="btn btn-danger"  sec:authorize="isAnonymous()" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+
             </table>
             <br>
             <br>

@@ -25,7 +25,9 @@
                 </table>
 
                 <td><a class="btn btn-primary" th:href="@{'/invitado/listarProductos'}"> Regresar </a></td>
-                <td><a class="btn btn-danger" th:href="@{'/registrado/AgregarCarritoVerMas' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a></td>
+                <a class="btn btn-dark" sec:authorize="hasAnyAuthority('gestor')"  th:href="@{'/gestor/editarProducto' + '?id=' + ${producto.idproducto}}">Editar Producto</a>
+                <a class="btn btn-danger"  sec:authorize="hasAnyAuthority('registrado')" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+                <a class="btn btn-danger"  sec:authorize="isAnonymous()" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
 
             </div>
         </tr>

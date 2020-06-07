@@ -1,5 +1,6 @@
 package exparcialg6.demo.Controller;
 
+import exparcialg6.demo.entity.Producto;
 import exparcialg6.demo.entity.Usuario;
 import exparcialg6.demo.repository.ProductoRepository;
 import exparcialg6.demo.repository.UsuarioRepository;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,40 +22,34 @@ public class GestorController {
     @Autowired
     ProductoRepository productoRepository;
 
+     @GetMapping(value = {"","/"})
+     public String listarProductos(Model model, RedirectAttributes attr){
+         model.addAttribute("listaProductos", productoRepository.findAll());
+         return "producto/listProduct";
+     }
+
     //CREAR PRODUCTO
+    @GetMapping("/crearProducto")
+    public String nuevoProductoForm() {
+        return "gestor/newProduct";
+    }
 
 
-
-    //EDITAR PRODUCTO
-
-
-
-    /*
-    @GetMapping("gestorEditUsuarioSede")
-    public String editarUsuarioSede(@RequestParam("idusuarios") int idusuario, @ModelAttribute("usuarios") Usuario usuario, Model model) {
-        Optional<Usuario> usuarioID = usuarioRepository.findById(idusuario);
-        if (usuarioID.isPresent()) {
-            usuario = usuarioID.get();
-            model.addAttribute("usuario", usuario);
-            return "Gestor/G-EditUsuarioSede";
+    @GetMapping("editarProducto")
+    public String editarProducto(@RequestParam("id") int id, @ModelAttribute("producto") Producto producto, Model model) {
+        Optional<Producto> productoid = productoRepository.findById(id);
+        if (productoid.isPresent()) {
+            producto = productoid.get();
+            model.addAttribute("usuario", producto);
+            return "gestor/newProduct";
         } else {
-            return "redirect:/gestor/gestorListaUsuarioSede";
+            return "redirect:/gestor/";
         }
     }
-    */
-
 
 
 
     //BORRAR PRODUCTO
-
-
-
-
-
-
-
-
 
 
     //VER ESTADISTICAS
