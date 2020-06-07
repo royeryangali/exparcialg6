@@ -12,6 +12,7 @@
             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Buscar">
         </div>
     </form>
+    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se agregó el producto al carrito</h4>
     <table class="table">
 
         <tr th:each="producto: ${listaProductos}">
@@ -37,5 +38,6 @@
         </tr>
     </table>
 </div>
+
 </body>
 </html>
