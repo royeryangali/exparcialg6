@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Lista de Gestores</title>
+</head>
+<body>
+<div class="container">
+    <h1>Lista de Gestores</h1>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/admin/new'}">Nuevo Gestor</a>
+    <form class="input-group mb-lg-3" method="post" th:action="@{'/admin/buscarGestor'}">
+        <input type="text" class="form-control" placeholder="Texto a buscar" name="busqueda">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary ml-2 mr-2" type="submit">Buscar</button>
+            <a th:href="@{'/admin'}" class="btn btn-outline-danger">Limpiar</a>
+        </div>
+    </form>
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <div th:if="${listaGestores.size() == 0}" class="alert alert-success" role="alert">No hay resultados para la
+        búsqueda
+    </div>
+    <table class="table table-sm" th:if="${listaGestores.size() != 0}">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Correo</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario, info : ${listaGestores}">
+            <td th:text="${info.index + 1}"></td>
+            <td th:text="${usuario.nombre}"></td>
+            <td th:text="${usuario.apellido}"></td>
+            <td th:text="${usuario.dni}"></td>
+            <td th:text="${usuario.correo}"></td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/edit' + '?id=' + ${usuario.idusuario}}">Editar</a>
+            </td>
+            <td><a class="btn btn-danger" th:href="@{'/admin/delete' + '?id=' + ${usuario.idusuario}}">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

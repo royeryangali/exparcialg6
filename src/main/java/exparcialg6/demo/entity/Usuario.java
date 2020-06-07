@@ -1,6 +1,7 @@
 package exparcialg6.demo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Entity
@@ -13,27 +14,33 @@ public class Usuario implements Serializable {
     private
     Integer idusuario;
 
+    @NotBlank
+    @Size(min =2, max = 40, message = "El nombre debe estar entre 2 y 40 caracteres")
     @Column(nullable = false, name="nombre")
     private
     String nombre;
 
+    @NotBlank
+    @Size(min =2, max = 40, message = "El nombre debe estar entre 2 y 40 caracteres")
     @Column(nullable = false, name="apellido")
     private
     String apellido;
 
+    @NotBlank
+    @Digits(integer = 8, fraction = 0)
+    @Positive
     @Column(nullable = false, name="dni")
-    private
-    Integer dni;
+    private Integer dni;
 
-    @Column(nullable = false, name="correo")
+    @Column(name="correo")
     private
     String correo;
 
-    @Column(nullable = false, name="rol")
+    @Column(name="rol")
     private
     String rol;
 
-    @Column(nullable = false, name="activo")
+    @Column(name="activo")
     private
     int activo;
 

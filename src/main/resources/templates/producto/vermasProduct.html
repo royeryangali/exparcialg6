@@ -5,6 +5,7 @@
 <div class="container">
     <nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Producto')"></nav>
     <h2>Producto - Ver más</h2>
+    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se agregó el producto al carrito</h4>
     <table class="table">
         <h3 th:text="${producto.nombre}"></h3>
         <tr>
