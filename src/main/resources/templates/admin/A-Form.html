@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Gestor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+<h2 th:text="${usuario.idusuario == 0?'Nuevo Gestor':'Editar Gestor'}"></h2>
+<hr/>
+<form method="post" th:action="@{/admin/save}" th:object="${usuario}">
+    <input type="hidden" name="idusuario" th:value="${usuario.idusuario}"/>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="nombre">Nombre</label>
+            <input type="text" th:field="${usuario.nombre}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+        </div>
+        <div class="form-group col-6">
+            <label for="apellido">Apellido</label>
+            <input type="text" th:field="${usuario.apellido}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="dni">DNI</label>
+            <input type="text" th:field="${usuario.dni}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
+        </div>
+        <div class="form-group col-6">
+            <label for="correo">Correo</label>
+            <input type="text" th:value="${usuario.correo}" class="form-control">
+            <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+        </div>
+    </div>
+
+
+    <a th:href="@{'/admin'}" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary"
+            th:text="${usuario.idusuario == 0?'Registrar':'Actualizar'}"></button>
+    <div class="row">
+        <div class="form-group"></div>
+    </div>
+</form>
+</body>
+</html>
