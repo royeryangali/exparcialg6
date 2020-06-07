@@ -137,7 +137,7 @@ public class RegistradoController {
         session.setAttribute("total", total);
         model.addAttribute("lista", lista); // DA UNA LISTA DEL ENTITY CARRITO
         //TODO Ordenar la lista en orden del total a gastar
-        return "producto/VerCarrito";
+        return "producto/verCarrito";
     }
 
     @GetMapping("Checkout")
