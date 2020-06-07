@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 @Controller
 public class LoginController {
@@ -40,7 +37,7 @@ public class LoginController {
         } else if (rol.equalsIgnoreCase("registrado")) {
             Usuario usuarioLogueado = usuarioRepository.findByCorreo(auth.getName());
             session.setAttribute("user", usuarioLogueado);
-            List<Producto> Carrito = null;
+            ArrayList<Producto> Carrito = new ArrayList<Producto>();
             session.setAttribute("carrito", Carrito);
             return "redirect:/invitado/listarProductos";
         } else if (rol.equalsIgnoreCase("gestor")) {

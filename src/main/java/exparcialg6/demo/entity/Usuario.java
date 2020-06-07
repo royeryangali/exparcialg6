@@ -1,10 +1,11 @@
 package exparcialg6.demo.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 
     @Id
     @Column(name="idusuario")

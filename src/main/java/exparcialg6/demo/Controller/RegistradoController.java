@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +23,15 @@ public class RegistradoController {
 
     @GetMapping("AgregarCarritoVerMas")  // Agregar al carrito
     public String AgregarCarritoVerMas(Model model, HttpSession session, @RequestParam("id") int id) {
-        List<Producto> Carrito = (List<Producto>) session.getAttribute("carrito");
+        ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
         Optional<Producto> producto = productoRepository.findById(id);
         int a = 0;
-        for (int i = 1; i <= Carrito.size(); i++) {
+        for (int i = 0; i <= Carrito.size()-1; i++) {
             if (Carrito.get(i).getIdproducto() == id) {
                 a = a + 1;
             }
         }
-
+        System.out.println("Antes de agregar el carrito tiene " + a + " " + producto.get().getNombre() + "s");
         if (a <= 3) { // AGREGAR AL CARRITO
 
             Carrito.add(producto.get());
@@ -38,26 +39,32 @@ public class RegistradoController {
             session.setAttribute("Tamano", Carrito.size());
             model.addAttribute("producto", productoRepository.findById(id).get());
             model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
-            return "producto/vermasProduct?id=" + id;
+            System.out.println("Luego de agregar el carrito tiene " + (a+1) + " " + producto.get().getNombre() + "s");
+            System.out.println("Tamano de carrito: " + Carrito.size());
+
+
+            return "producto/vermasProduct";
 
         } else {// MENSAJE DE ERROR
-            model.addAttribute("producto", productoRepository.findById(id));
+            model.addAttribute("producto", productoRepository.findById(id).get());
             model.addAttribute("msg", "Ya ha llegado al limite de productos del mismo tipo");
-            return "producto/vermasProduct?id=" + id;
+            System.out.println("No se agrego");
+            System.out.println("Tamano de carrito: " + Carrito.size());
+            return "producto/vermasProduct";
         }
     }
 
     @GetMapping("AgregarCarrito")  // Agregar al carrito
     public String agregarCarrito(Model model, HttpSession session, @RequestParam("id") int id) {
-        List<Producto> Carrito = (List<Producto>) session.getAttribute("carrito");
+        ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
         Optional<Producto> producto = productoRepository.findById(id);
         int a = 0;
-        for (int i = 1; i <= Carrito.size(); i++) {
+        for (int i = 0; i <= Carrito.size()-1; i++) {
             if (Carrito.get(i).getIdproducto() == id) {
                 a = a + 1;
             }
         }
-
+        System.out.println("Antes de agregar el carrito tiene " + a + " " + producto.get().getNombre() + "s");
         if (a <= 3) { // AGREGAR AL CARRITO
 
             Carrito.add(producto.get());
@@ -65,11 +72,15 @@ public class RegistradoController {
             session.setAttribute("Tamano", Carrito.size());
             model.addAttribute("listaProductos", productoRepository.findAll());
             model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
+            System.out.println("Luego de agregar el carrito tiene " + (a+1) + " " + producto.get().getNombre() + "s");
+            System.out.println("Tamano de carrito: " + Carrito.size());
             return "producto/listProduct";
 
         } else {// MENSAJE DE ERROR
             model.addAttribute("listaProductos", productoRepository.findAll());
             model.addAttribute("msg", "Ya ha llegado al limite de productos del mismo tipo");
+            System.out.println("No se agrego");
+            System.out.println("Tamano de carrito: " + Carrito.size());
             return "producto/listProduct";
         }
     }
