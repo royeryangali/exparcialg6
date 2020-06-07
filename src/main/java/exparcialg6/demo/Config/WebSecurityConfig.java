@@ -18,11 +18,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.formLogin()
-                .loginPage("/loginForm").loginProcessingUrl("/processLogin")
+                .loginPage("/login/loginForm").loginProcessingUrl("/processLogin")
                 .usernameParameter("correo")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/redirectByRole", true);
-        http.logout().logoutUrl("/cerrar").logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+        http.logout().logoutUrl("/cerrar").logoutSuccessUrl("/invitado/listarProductos").deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
         http.authorizeRequests().antMatchers("/admin", "/admin/**").hasAuthority("administrador");
         http.authorizeRequests().antMatchers("/registrado", "/registrado/**").hasAuthority("registrado");

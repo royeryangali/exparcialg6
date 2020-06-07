@@ -22,7 +22,7 @@ public class LoginController {
 
     @GetMapping("/loginForm")
     public String loginForm() {
-        return "Login";
+        return "/login/loginForm";
     }
 
 
@@ -42,7 +42,7 @@ public class LoginController {
             session.setAttribute("user", usuarioLogueado);
             List<Producto> Carrito = null;
             session.setAttribute("carrito", Carrito);
-            return "redirect:/registrado";
+            return "redirect:/invitado/listarProductos";
         } else if (rol.equalsIgnoreCase("gestor")) {
             Usuario usuarioLogueado = usuarioRepository.findByCorreo(auth.getName());
             session.setAttribute("user", usuarioLogueado);
