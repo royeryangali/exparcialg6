@@ -153,6 +153,20 @@ public class RegistradoController {
                 lista.add(carrito);
             }
         }
+        // ATTEMPT TO SORT BASED ON COLLECTIONS
+        Collections.sort(lista,new Comparator<exparcialg6.demo.entity.Carrito>() {
+            @Override
+            public int compare(exparcialg6.demo.entity.Carrito s1, exparcialg6.demo.entity.Carrito s2) {
+                return (int) ((s2.getProducto().getPrecio() * s2.getCantidad() * 10.0) - (s1.getProducto().getPrecio() * s1.getCantidad() * 10.0) ) ;
+            }
+        });
+        // END ATTEMPT (FUNCIONO!!!!)
+
+
+
+
+
+
         session.setAttribute("total", total);
         model.addAttribute("lista", lista); // DA UNA LISTA DEL ENTITY CARRITO
         //TODO Ordenar la lista en orden del total a gastar
