@@ -211,8 +211,8 @@ public class RegistradoController {
     }
 
 
-    @PostMapping("verPedidos") // TODO BUSCADOR DE MIS PEDIDOS
-    public String verPedidos(BindingResult bindingResult,
+    @GetMapping("verPedidos") // TODO BUSCADOR DE MIS PEDIDOS
+    public String verPedidos(
                              Model model,
                              HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("user");

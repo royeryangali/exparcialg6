@@ -15,7 +15,7 @@
                             <ul>
                                 <li th:text="|'Pedido #:' ${miPedido.pedido.codigo}|">Aquí irá el número de pedido
                                 </li>
-                                <li th:each="info, producto:${lista.misPedidos}" th:text="|'Nombre del producto #' info +': ' ${producto.getNombre()}|">Aquí
+                                <li th:each="info, producto:${lista.get(info).misPedidos}" th:text="|'Nombre del producto #' info +': ' ${producto.getNombre()}|">Aquí
                                     irá el producto #1
                                 </li>
                             </ul>

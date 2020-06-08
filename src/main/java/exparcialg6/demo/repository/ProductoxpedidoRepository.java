@@ -17,6 +17,6 @@ public interface ProductoxpedidoRepository extends JpaRepository<Productoxpedido
             " from pedido pe" +
             " inner join productoxpedido x on x.idpedido = pe.idpedido" +
             " inner join producto pr on pr.idproducto = x.idproducto" +
-            " where pe.idpedido = ?1;",nativeQuery = true)
+            " where pe.idpedido = ?1",nativeQuery = true)
     List<MisPedidos> listaMisPedidos(int idpedido);
 }
