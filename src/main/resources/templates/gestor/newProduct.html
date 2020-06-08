@@ -1,51 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${usuario.idusuario == 0?'Nuevo Producto':'Editar Producto'}"></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-</head>
-<body class="container">
-<h2 th:text="${usuario.idusuario == 0?'Nuevo Gestor':'Editar Gestor'}"></h2>
-<hr/>
-<form method="post" th:action="@{/admin/save}" th:object="${usuario}">
-    <input type="hidden" name="idusuario" th:value="${usuario.idusuario}"/>
-    <div class="row">
-        <div class="form-group col-6">
-            <label for="nombre">Nombre</label>
-            <input type="text" th:field="${usuario.nombre}" class="form-control">
-            <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
-        </div>
-        <div class="form-group col-6">
-            <label for="apellido">Apellido</label>
-            <input type="text" th:field="${usuario.apellido}" class="form-control">
-            <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
-        </div>
-    </div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 
-    <div class="row">
-        <div class="form-group col-6">
-            <label for="dni">DNI</label>
-            <input type="text" th:field="${usuario.dni}" class="form-control">
-            <div class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
+<head th:replace="fragmento/navBar.html :: cabecera( title = 'Nuevo Producto')"></head>
+<body>
+<div class="container">
+    <nav th:replace="fragmento/navbar.html :: barrapedidos(active = 'Noimporta')"></nav>
+    <h2 th:text="${producto.idproducto == 0?'Nuevo Producto':'Editar Producto'}"></h2>
+    <form method="post" th:action="@{/gestor/guardarProducto}" th:object="${producto}">
+        <input type="hidden" name="idusuario" th:value="${producto.idproducto}"/>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="nombre">Nombre del producto</label>
+                <input type="text" th:field="${producto.nombre}" class="form-control">
+                <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+            <div class="form-group col-6">
+                <label for="descripcion">Descripción</label>
+                <input type="text" th:field="${producto.descripcion}" class="form-control">
+                <div class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+            </div>
         </div>
-        <div class="form-group col-6">
-            <label for="correo">Correo</label>
-            <input type="text" th:field="${usuario.correo}" class="form-control">
-            <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="precio">Precio</label>
+                <input type="text" th:field="${producto.precio}" class="form-control">
+                <div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+            </div>
+            <div class="form-group col-6">
+                <label for="foto">Foto</label>
+                <input type="text" th:field="${producto.foto}" class="form-control">
+                <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{foto}"></div>
+            </div>
+            <div class="form-group col-6">
+                <label for="stock">Stock</label>
+                <input type="text" th:field="${producto.stock}" class="form-control">
+                <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{stock}"></div>
+            </div>
         </div>
-    </div>
-    <input type="hidden" name="rol" th:value="${usuario.rol}"/>
-    <input type="hidden" name="password" th:value="${usuario.password}"/>
-    <a th:href="@{'/admin'}" class="btn btn-danger">Cancelar</a>
-    <button type="submit" class="btn btn-primary"
-            th:text="${usuario.idusuario == 0?'Registrar':'Actualizar'}"></button>
-    <div class="row">
-        <div class="form-group"></div>
-    </div>
-</form>
+        <a th:href="@{'/gestor'}" class="btn btn-danger">Cancelar</a>
+        <button type="submit" class="btn btn-primary"
+                th:text="${producto.idproducto == 0?'Registrar':'Actualizar'}"></button>
+        <div class="row">
+            <div class="form-group"></div>
+        </div>
+
+    </form>
+</div>
 </body>
 </html>

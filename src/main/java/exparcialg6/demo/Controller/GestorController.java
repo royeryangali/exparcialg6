@@ -41,7 +41,24 @@ public class GestorController {
     }
 
 
-
+    @GetMapping("/guardarProducto")
+    public String editarProducto(@ModelAttribute("producto") @Valid Producto producto, Model model , BindingResult bindingResult,
+                                 RedirectAttributes attr){
+        model.addAttribute("producto",producto);
+        if (bindingResult.hasErrors()) {
+            return "gestor/newProduct";
+        } else {
+            if (producto.getIdproducto() == 0) {
+                attr.addFlashAttribute("msg", "Producto creado exitosamente");
+                productoRepository.save(producto);
+                return "redirect:/admin";
+            } else {
+                productoRepository.save(producto);
+                attr.addFlashAttribute("msg", "Producto actualizado exitosamente");
+                return "redirect:/gestor";
+            }
+        }
+    }
 
 
     //BORRAR PRODUCTO
