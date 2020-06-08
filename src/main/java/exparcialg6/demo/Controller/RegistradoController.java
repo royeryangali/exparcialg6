@@ -135,7 +135,7 @@ public class RegistradoController {
 
 
     //VER CARRITO
-    @GetMapping("VerCarrito")
+    @GetMapping(value={"/VerCarrito","","/"})
     public String VerCarrito(Model model, HttpSession session) {
         ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
         List productos = productoRepository.findAll();
@@ -176,7 +176,7 @@ public class RegistradoController {
             }
         }
         session.setAttribute("total", total);
-        return "checkout"; //TODO PONER EL NOMBRE DEL HTML DE CHECKOUT
+        return "producto/verCheckout";
     }
 
     @PostMapping("guardarPedido")
@@ -188,7 +188,7 @@ public class RegistradoController {
 
         //VALIDAR LA TARJETA
         if (ComprobarTarjeta(tarjeta)) {
-
+            System.out.println("TARJETA COMPROBADA");
             Pedido pedido = new Pedido();
             LocalDate date = java.time.LocalDate.now();
             pedido.setFecha(date);
@@ -200,6 +200,7 @@ public class RegistradoController {
             pedidoRepository.save(pedido);
             attr.addFlashAttribute("msg", "Pedido realizado exitosamente");
         } else {
+            System.out.println("TARJETA ERRONEA");
             attr.addFlashAttribute("msg", "Error en el numero de tarjeta ingresado");
             return "redirect:/registrado/Checkout";
         }
@@ -233,11 +234,15 @@ public class RegistradoController {
 
     public boolean ComprobarTarjeta(String Tarjeta) {
         if (Tarjeta != null) {
-            if (Tarjeta.matches("^\\d{16}$")) {
+            if (Tarjeta.matches("^\\d{4}-\\d{4}-\\d{4}-\\d{4}$")) {
+                Tarjeta.replaceAll("-","");
+                System.out.println(Tarjeta);
                 String mochado = Tarjeta.substring(0, 15); // quita el ultimo
+                System.out.println(mochado);
                 StringBuilder input1 = new StringBuilder(); //EMPIEZA A REVERSE
                 input1.append(mochado);
                 String volteado = input1.reverse().toString(); // Fin voltear
+                System.out.println(volteado);
                 int a1 = Integer.parseInt(volteado.substring(0, 1));
                 int a2 = Integer.parseInt(volteado.substring(1, 2));
                 int a3 = Integer.parseInt(volteado.substring(2, 3));
