@@ -7,12 +7,14 @@ import exparcialg6.demo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,9 @@ public class GestorController {
     @Autowired
     ProductoRepository productoRepository;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     @GetMapping(value = {"", "/"})
     public String listarProductos(Model model, RedirectAttributes attr) {
         model.addAttribute("listaProductos", productoRepository.findAll());
@@ -30,24 +35,28 @@ public class GestorController {
 
     //CREAR PRODUCTO
     @GetMapping("/crearProducto")
-    public String nuevoProductoForm() {
+    public String nuevoProductoForm(@ModelAttribute("usuario") Usuario usuario, Model model) {
+        usuario.setIdusuario(0);
         return "gestor/newProduct";
     }
 
-    @GetMapping("/hola")
-    public String nuevoProductoForm1() {
-        return "producto/verCheckout";
-    }
 
-    @GetMapping("editarProducto")
-    public String editarProducto(@RequestParam("id") int id, @ModelAttribute("producto") Producto producto, Model model) {
-        Optional<Producto> productoid = productoRepository.findById(id);
-        if (productoid.isPresent()) {
-            producto = productoid.get();
-            model.addAttribute("usuario", producto);
+    @GetMapping("/guardarProducto")
+    public String editarProducto(@ModelAttribute("producto") @Valid Producto producto, Model model , BindingResult bindingResult,
+                                 RedirectAttributes attr){
+
+        if (bindingResult.hasErrors()) {
             return "gestor/newProduct";
         } else {
-            return "redirect:/gestor/";
+            if (producto.getIdproducto() == 0) {
+                attr.addFlashAttribute("msg", "Producto creado exitosamente");
+                productoRepository.save(producto);
+                return "redirect:/admin";
+            } else {
+                productoRepository.save(producto);
+                attr.addFlashAttribute("msg", "Producto actualizado exitosamente");
+                return "redirect:/gestor";
+            }
         }
     }
 

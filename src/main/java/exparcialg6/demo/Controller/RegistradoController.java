@@ -1,12 +1,11 @@
 package exparcialg6.demo.Controller;
 
-import exparcialg6.demo.entity.Carrito;
-import exparcialg6.demo.entity.Pedido;
-import exparcialg6.demo.entity.Producto;
+import exparcialg6.demo.dto.MisPedidos;
+import exparcialg6.demo.entity.*;
 import exparcialg6.demo.repository.PedidoRepository;
 import exparcialg6.demo.repository.ProductoRepository;
+import exparcialg6.demo.repository.ProductoxpedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +24,9 @@ public class RegistradoController {
 
     @Autowired
     PedidoRepository pedidoRepository;
+
+    @Autowired
+    ProductoxpedidoRepository productoxpedidoRepository;
 
     @GetMapping("AgregarCarritoVerMas")  // Agregar al carrito
     public String AgregarCarritoVerMas(Model model, HttpSession session, @RequestParam("id") int id) {
@@ -133,7 +135,7 @@ public class RegistradoController {
 
 
     //VER CARRITO
-    @GetMapping("VerCarrito")
+    @GetMapping(value={"/VerCarrito","","/"})
     public String VerCarrito(Model model, HttpSession session) {
         ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
         List productos = productoRepository.findAll();
@@ -159,7 +161,22 @@ public class RegistradoController {
 
     @GetMapping("Checkout")
     public String Checkout(Model model, HttpSession session) {
-        return "checkout"; //TODO PONER EL NOMBRE DEL HTML DE CHECKOUT
+        ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
+        List productos = productoRepository.findAll();
+        double total = 0.0;
+        int veces = 0;
+        for (int i = 0; i < productos.size(); i++) {
+
+            veces = repetir(Carrito, (Producto) productos.get(i));
+            if (veces > 0) {
+                exparcialg6.demo.entity.Carrito carrito = new Carrito();
+                carrito.setCantidad(veces);
+                carrito.setProducto((Producto) productos.get(i));
+                total = total + carrito.getCantidad() * carrito.getProducto().getPrecio();
+            }
+        }
+        session.setAttribute("total", total);
+        return "producto/verCheckout";
     }
 
     @PostMapping("guardarPedido")
@@ -171,7 +188,7 @@ public class RegistradoController {
 
         //VALIDAR LA TARJETA
         if (ComprobarTarjeta(tarjeta)) {
-
+            System.out.println("TARJETA COMPROBADA");
             Pedido pedido = new Pedido();
             LocalDate date = java.time.LocalDate.now();
             pedido.setFecha(date);
@@ -183,6 +200,7 @@ public class RegistradoController {
             pedidoRepository.save(pedido);
             attr.addFlashAttribute("msg", "Pedido realizado exitosamente");
         } else {
+            System.out.println("TARJETA ERRONEA");
             attr.addFlashAttribute("msg", "Error en el numero de tarjeta ingresado");
             return "redirect:/registrado/Checkout";
         }
@@ -191,13 +209,40 @@ public class RegistradoController {
     }
 
 
+    @PostMapping("verPedidos") // TODO BUSCADOR DE MIS PEDIDOS
+    public String verPedidos(BindingResult bindingResult,
+                             Model model,
+                             HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("user");
+        List<Pedido> listaPedidos = pedidoRepository.findByUsuario(usuario);
+        if (listaPedidos.isEmpty()) {
+            model.addAttribute("msg", "Todavia no ha realizado pedidos");
+            return "producto/misPedidos";
+        }
+        ArrayList<Joke> jokeArrayList = new ArrayList<Joke>();
+        for (Pedido pedido: listaPedidos ) {
+            Joke joke = new Joke();
+            List<MisPedidos> misPedidos = productoxpedidoRepository.listaMisPedidos(pedido.getIdpedido());
+            joke.setMisPedidos(misPedidos);
+            joke.setPedido(pedido);
+            jokeArrayList.add(joke);
+        }
+        model.addAttribute("lista", jokeArrayList );
+        return "producto/misPedidos";
+    }
+
+
     public boolean ComprobarTarjeta(String Tarjeta) {
         if (Tarjeta != null) {
-            if (Tarjeta.matches("^\\d{16}$")) {
+            if (Tarjeta.matches("^\\d{4}-\\d{4}-\\d{4}-\\d{4}$")) {
+                Tarjeta.replaceAll("-","");
+                System.out.println(Tarjeta);
                 String mochado = Tarjeta.substring(0, 15); // quita el ultimo
+                System.out.println(mochado);
                 StringBuilder input1 = new StringBuilder(); //EMPIEZA A REVERSE
                 input1.append(mochado);
                 String volteado = input1.reverse().toString(); // Fin voltear
+                System.out.println(volteado);
                 int a1 = Integer.parseInt(volteado.substring(0, 1));
                 int a2 = Integer.parseInt(volteado.substring(1, 2));
                 int a3 = Integer.parseInt(volteado.substring(2, 3));
@@ -238,8 +283,6 @@ public class RegistradoController {
             return false;
         }
     }
-
-
 
 
 }
