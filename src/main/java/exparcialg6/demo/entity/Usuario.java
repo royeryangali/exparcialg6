@@ -14,9 +14,9 @@ public class Usuario implements Serializable {
     private
     Integer idusuario;
 
-    @NotBlank
-    @Size(min =2, max = 40, message = "El nombre debe estar entre 2 y 40 caracteres")
     @Column(nullable = false, name="nombre")
+    @NotEmpty
+    @Size(min =2, max = 40, message = "El nombre debe estar entre 2 y 40 caracteres")
     private
     String nombre;
 

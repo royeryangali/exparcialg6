@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragmento/navBar.html :: cabecera(title = 'Checkout-Final')"></head>
+<body>
+<nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Producto')"></nav>
+<div style="text-align: center;">
+
+    <div style="text-align: center;"><h1>Check Out</h1></div>
+    <br>
+
+    <div style="text-align: center;" th:text="|Total a pagar:  ${session.total}|"><h2></h2></div>
+    <br>
+
+    <div style="text-align: center;" th:text="|Datos de Pago: |"><h2></h2></div>
+    <br>
+    <div style="text-align: center;">
+        <form style="text-align: center;" th:action="@{/}" method="post">
+            <div style="text-align: center;">
+                <h4> -> Tarjeta de crédito </h4>
+                <input type="text" placeholder="" aria-label="Search">
+                <br>
+            </div>
+            <input type="submit" class="btn btn-danger" value="Pagar">
+        </form>
+    </div>
+
+
+</div>
+</body>
+</html>
