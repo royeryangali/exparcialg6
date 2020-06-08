@@ -9,13 +9,13 @@
         <tr>
             <div>
                 <table>
-                    <tr th:each="misPedidos : ${lista}">
+                    <tr th:each="miPedido : ${lista}">
                         <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
                         <td>
                             <ul>
-                                <li th:text="|'Pedido #:' ${misPedidos.producto.codigo}|">Aquí irá el número de pedido
+                                <li th:text="|'Pedido #:' ${miPedido.pedido.codigo}|">Aquí irá el número de pedido
                                 </li>
-                                <li th:each="info : producto:${lista.producto}" th:text="|'Nombre del producto #' info +': ' ${misPedidos.producto.nombre}|">Aquí
+                                <li th:each="info, producto:${lista.misPedidos}" th:text="|'Nombre del producto #' info +': ' ${producto.getNombre()}|">Aquí
                                     irá el producto #1
                                 </li>
                             </ul>
