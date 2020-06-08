@@ -187,6 +187,7 @@ public class RegistradoController {
                                 HttpSession session) {
 
         //VALIDAR LA TARJETA
+        System.out.println(tarjeta);
         if (ComprobarTarjeta(tarjeta)) {
             System.out.println("TARJETA COMPROBADA");
             Pedido pedido = new Pedido();
@@ -235,7 +236,7 @@ public class RegistradoController {
     public boolean ComprobarTarjeta(String Tarjeta) {
         if (Tarjeta != null) {
             if (Tarjeta.matches("^\\d{4}-\\d{4}-\\d{4}-\\d{4}$")) {
-                Tarjeta.replaceAll("-","");
+                Tarjeta = Tarjeta.replaceAll("-","");
                 System.out.println(Tarjeta);
                 String mochado = Tarjeta.substring(0, 15); // quita el ultimo
                 System.out.println(mochado);
@@ -259,17 +260,28 @@ public class RegistradoController {
                 int a14 = Integer.parseInt(volteado.substring(13, 14));
                 int a15 = Integer.parseInt(volteado.substring(14));
                 int[] temp = {a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15};
+                System.out.println(temp[0]);
+                System.out.println(temp[1]);
+                System.out.println(temp[13]);
+                System.out.println(temp[14]);
+
                 int sumador = 0;
+                System.out.println("separador");
                 for (int entero : temp) {
+
                     if (entero % 2 == 1) { // inicio *2 si impar
                         entero = entero * 2;
+                        System.out.println("se multiplico x2 " + entero);
                     } //fin *2 si impar
                     if (entero > 9) {
+                        System.out.println(entero + " es mayor que nueve");
                         entero = entero - 9;
                     }
                     sumador = sumador + entero;
                 }
+                System.out.println("sumador " + sumador);
                 boolean bool = ((10 - (sumador % 10)) % 10) == Integer.parseInt(Tarjeta.substring(15));
+                System.out.println(bool);
                 if (bool) {
                     return true;
                 } else {
