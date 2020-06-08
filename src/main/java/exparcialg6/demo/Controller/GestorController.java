@@ -44,7 +44,7 @@ public class GestorController {
     @GetMapping("/guardarProducto")
     public String editarProducto(@ModelAttribute("producto") @Valid Producto producto, Model model , BindingResult bindingResult,
                                  RedirectAttributes attr){
-        model.addAttribute("producto",producto);
+
         if (bindingResult.hasErrors()) {
             return "gestor/newProduct";
         } else {
