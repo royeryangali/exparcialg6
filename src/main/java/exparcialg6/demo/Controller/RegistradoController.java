@@ -100,16 +100,8 @@ public class RegistradoController {
             session.setAttribute("total", total);
             // END GET TOTAL
             model.addAttribute("listaProductos", productoRepository.findAll());
-            model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
-            System.out.println("Luego de agregar el carrito tiene " + (a + 1) + " " + producto.get().getNombre() + "s");
-            System.out.println("Tamano de carrito: " + Carrito.size());
-            System.out.println("debug del producto");
-            System.out.println("total: " + total);
-            System.out.println(producto.get().getNombre());
-            System.out.println(producto.get().getPrecio());
-            System.out.println(producto.get().getCodigo());
-            System.out.println(producto.get().getDescripcion());
-            System.out.println(producto.get().getStock());
+            model.addAttribute("msg", producto.get().getNombre() + " Agregado exitosamente");
+
 
             return "producto/listProduct";
 
@@ -153,6 +145,20 @@ public class RegistradoController {
                 lista.add(carrito);
             }
         }
+        // ATTEMPT TO SORT BASED ON COLLECTIONS
+        Collections.sort(lista,new Comparator<exparcialg6.demo.entity.Carrito>() {
+            @Override
+            public int compare(exparcialg6.demo.entity.Carrito s1, exparcialg6.demo.entity.Carrito s2) {
+                return (int) ((s2.getProducto().getPrecio() * s2.getCantidad() * 10.0) - (s1.getProducto().getPrecio() * s1.getCantidad() * 10.0) ) ;
+            }
+        });
+        // END ATTEMPT (FUNCIONO!!!!)
+
+
+
+
+
+
         session.setAttribute("total", total);
         model.addAttribute("lista", lista); // DA UNA LISTA DEL ENTITY CARRITO
         //TODO Ordenar la lista en orden del total a gastar

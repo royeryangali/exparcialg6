@@ -18,7 +18,7 @@
             </div>
         </div>
     </form>
-    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se
+    <h4 th:if="${msg!=null}" th:text="${' ' + msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se
         agregó el producto al carrito</h4>
     <table class="table">
 
@@ -50,6 +50,12 @@
             <br>
         </tr>
     </table>
+
+    <h4> Cambiar de Pagina </h4>
+    <th:block th:each="i: ${#numbers.sequence(1, paginacion+1 )}" >
+    <a class="btn btn-outline-light btn-dark btn-lg" th:href="@{'/invitado/listarProductos' + '?pag=' + ${(i-1)}}" th:text="${i}"> </a>
+    </th:block>
+
 </div>
 
 </body>
