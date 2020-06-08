@@ -42,6 +42,12 @@
             <br>
         </tr>
     </table>
+
+    <h4> Cambiar de Pagina </h4>
+    <th:block th:each="i: ${#numbers.sequence(0, paginacion )}" >
+    <a class="btn btn-outline-light btn-dark btn-lg" th:href="@{'/invitado/listarProductos' + '?pag=' + ${i}}" th:text="${i}"> </a>
+    </th:block>
+
 </div>
 
 </body>
