@@ -65,7 +65,10 @@ public class LoginController {
     }
 
     @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingresult) {
+    public String guardarUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingresult,
+                                 RedirectAttributes attr) {
+
+        String texto = "hola";
 
         if (bindingresult.hasErrors()){
             return "invitado/registrarse";
