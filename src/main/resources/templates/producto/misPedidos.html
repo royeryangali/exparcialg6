@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmento/navBar.html :: cabecera(title = 'Mis Pedidos')"></head>
+<body>
+<div class="container">
+    <nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Mis Pedidos')"></nav>
+    <h2>Mis Pedidos</h2>
+    <table class="table">
+        <tr>
+            <div>
+                <table>
+                    <tr th:each="misPedidos : ${lista}">
+                        <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
+                        <td>
+                            <ul>
+                                <li th:text="|'Pedido #:' ${misPedidos.producto.codigo}|">Aquí irá el número de pedido
+                                </li>
+                                <li th:each="info : producto:${lista.producto}" th:text="|'Nombre del producto #' info +': ' ${misPedidos.producto.nombre}|">Aquí
+                                    irá el producto #1
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <h3 th:text="|${session.total}|"></h3>
+                </table>
+
+                <td><a class="alert-success" th:href="@{'/invitado/listarProductos'}"> Proceder a comprar </a></td>
+
+            </div>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

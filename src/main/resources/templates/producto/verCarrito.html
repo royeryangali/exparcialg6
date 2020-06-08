@@ -5,7 +5,7 @@
 <div class="container">
     <nav th:replace="fragmento/navbar.html :: barrapedidos( active = 'Check Out del Carrito')"></nav>
     <h2>Chek Out de Compras</h2>
-    <table class="table">
+    <table class="table" >
         <tr>
             <div>
                 <table>
@@ -21,9 +21,9 @@
                             </ul>
                         </td>
                     </tr>
-                    <h3 th:text="|${session.total}|"></h3>
-                </table>
 
+                </table>
+                <h3 th:text="|Total: S/ ${session.total} |"></h3>
                 <td><a class="alert-success" th:href="@{'/invitado/listarProductos'}"> Proceder a comprar </a></td>
 
             </div>

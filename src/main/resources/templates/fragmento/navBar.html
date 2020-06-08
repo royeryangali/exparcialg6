@@ -25,6 +25,10 @@
                     th:classappend="${active == 'gestor'?'active':''}">
                     <a class="nav-link" th:href="@{/gestor/crearProducto}">Crear Producto</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('registrado')"
+                    th:classappend="${active == 'registrado'?'active':''}">
+                    <a class="nav-link" th:href="@{/registrado/VerCarrito}">Mis Pedidos</a>
+                </li>
                 <li sec:authorize="hasAnyAuthority('registrado')" class="nav-item">
                     <a th:href="@{'/registrado/VerCarrito'}" th:text="|(${session.carrito.size()})|"></a>
                 </li>
