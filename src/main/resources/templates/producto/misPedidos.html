@@ -9,15 +9,15 @@
         <tr>
             <div>
                 <table>
-                    <tr th:each="miPedido : ${lista}">
-                        <td><h1>AQUI DEBE IR LA FOTEX</h1></td>
+                    <tr th:each="joke : ${lista}">
+
                         <td>
                             <ul>
-                                <li th:text="|'Pedido #:' ${miPedido.pedido.codigo}|">Aquí irá el número de pedido
+                                <h4 th:text="|Pedido  #${joke.getPedido().getCodigo()}  - - - - - -      fecha: ${joke.getPedido().getFecha()}|">
+                                </h4>
+                                <li th:each=" producto:${joke.getMisPedidos()}" th:text="|   Producto:  ${producto.getNombre()}   (${producto.getCantidad()}) |">
                                 </li>
-                                <li th:each="info, producto:${lista.get(info).misPedidos}" th:text="|'Nombre del producto #' info +': ' ${producto.getNombre()}|">Aquí
-                                    irá el producto #1
-                                </li>
+                                <h4 th:text="|Total: ${joke.getPedido().getTotal()} Soles    |"></h4>
                             </ul>
                         </td>
                     </tr>
