@@ -11,7 +11,7 @@
 </head>
 <body class="text-center">
 <div class="container theme-showcase">
-    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-danger" role="alert"></div>
     <form method="post" th:action="@{/guardarUsuario}" th:object="${usuario}">
         <h2 class="form-signin-heading">Registro de usuario</h2>
         <br>

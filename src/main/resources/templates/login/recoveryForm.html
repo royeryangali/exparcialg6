@@ -11,7 +11,7 @@
 </head>
 <body class="text-center">
 <div class="container theme-showcase">
-    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-danger" role="alert"></div>
     <form class="form-signin" th:action="@{/recuperarContraseña}" method="post">
         <h3 class="form-signin-heading">Recuperar Contraseña</h3>
         <h4>Correo</h4> <label for="correo" class="sr-only">Usuario</label>
