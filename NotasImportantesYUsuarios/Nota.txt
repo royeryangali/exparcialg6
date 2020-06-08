@@ -1,0 +1,10 @@
+
+Admin: admin@pucp.edu.pe 12345678
+Gestor: a20170086@pucp.edu.pe samuel123
+Registrado: r.yangali@pucp.pe royer123
+
+
+Nota: El carrito se llena con las fotos! Asi que tratar de añadir los objetos sin fotos. 
+Esto es porque el carrito esta en sesión y el producto entero se guarda en sesión. Por otro lado, 
+tener en cuenta fotos pequeñas para la creacion de productos.
+
