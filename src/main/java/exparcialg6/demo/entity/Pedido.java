@@ -13,7 +13,7 @@ public class Pedido {
     private Integer idpedido;
 
     @Column(nullable = false, name="total")
-    private Float total;
+    private double total;
 
     @Column(nullable = false, name="fecha")
     private LocalDate fecha;
@@ -35,11 +35,11 @@ public class Pedido {
         this.idpedido = idpedido;
     }
 
-    public Float getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(Float total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 

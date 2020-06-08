@@ -193,11 +193,12 @@ public class RegistradoController {
             Pedido pedido = new Pedido();
             LocalDate date = java.time.LocalDate.now();
             pedido.setFecha(date);
-            pedido.setTotal((float) session.getAttribute("total"));
+            pedido.setTotal((double) session.getAttribute("total"));
             String codigo;
             String fecha = String.valueOf(date.getDayOfMonth()) + String.valueOf(date.getMonthValue()) + String.valueOf(date.getYear());
             codigo = "PE" + fecha + (pedidoRepository.findAll().size() + 1);
             pedido.setCodigo(codigo);
+            pedido.setUsuario((Usuario) session.getAttribute("user"));
             pedidoRepository.save(pedido);
             attr.addFlashAttribute("msg", "Pedido realizado exitosamente");
         } else {
