@@ -22,11 +22,11 @@ public class GestorController {
     @Autowired
     ProductoRepository productoRepository;
 
-     @GetMapping(value = {"","/"})
-     public String listarProductos(Model model, RedirectAttributes attr){
-         model.addAttribute("listaProductos", productoRepository.findAll());
-         return "producto/listProduct";
-     }
+    @GetMapping(value = {"", "/"})
+    public String listarProductos(Model model, RedirectAttributes attr) {
+        model.addAttribute("listaProductos", productoRepository.findAll());
+        return "producto/listProduct";
+    }
 
     //CREAR PRODUCTO
     @GetMapping("/crearProducto")
@@ -34,6 +34,10 @@ public class GestorController {
         return "gestor/newProduct";
     }
 
+    @GetMapping("/hola")
+    public String nuevoProductoForm1() {
+        return "producto/verCheckout";
+    }
 
     @GetMapping("editarProducto")
     public String editarProducto(@RequestParam("id") int id, @ModelAttribute("producto") Producto producto, Model model) {
@@ -46,7 +50,6 @@ public class GestorController {
             return "redirect:/gestor/";
         }
     }
-
 
 
     //BORRAR PRODUCTO
