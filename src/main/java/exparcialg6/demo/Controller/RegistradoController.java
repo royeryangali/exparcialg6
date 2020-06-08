@@ -1,12 +1,11 @@
 package exparcialg6.demo.Controller;
 
-import exparcialg6.demo.entity.Carrito;
-import exparcialg6.demo.entity.Pedido;
-import exparcialg6.demo.entity.Producto;
+import exparcialg6.demo.dto.MisPedidos;
+import exparcialg6.demo.entity.*;
 import exparcialg6.demo.repository.PedidoRepository;
 import exparcialg6.demo.repository.ProductoRepository;
+import exparcialg6.demo.repository.ProductoxpedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +24,9 @@ public class RegistradoController {
 
     @Autowired
     PedidoRepository pedidoRepository;
+
+    @Autowired
+    ProductoxpedidoRepository productoxpedidoRepository;
 
     @GetMapping("AgregarCarritoVerMas")  // Agregar al carrito
     public String AgregarCarritoVerMas(Model model, HttpSession session, @RequestParam("id") int id) {
@@ -159,6 +161,21 @@ public class RegistradoController {
 
     @GetMapping("Checkout")
     public String Checkout(Model model, HttpSession session) {
+        ArrayList<Producto> Carrito = (ArrayList<Producto>) session.getAttribute("carrito");
+        List productos = productoRepository.findAll();
+        double total = 0.0;
+        int veces = 0;
+        for (int i = 0; i < productos.size(); i++) {
+
+            veces = repetir(Carrito, (Producto) productos.get(i));
+            if (veces > 0) {
+                exparcialg6.demo.entity.Carrito carrito = new Carrito();
+                carrito.setCantidad(veces);
+                carrito.setProducto((Producto) productos.get(i));
+                total = total + carrito.getCantidad() * carrito.getProducto().getPrecio();
+            }
+        }
+        session.setAttribute("total", total);
         return "checkout"; //TODO PONER EL NOMBRE DEL HTML DE CHECKOUT
     }
 
@@ -188,6 +205,29 @@ public class RegistradoController {
         }
         return "redirect:/invitado/listarProductos";
 
+    }
+
+
+    @PostMapping("verPedidos") // TODO BUSCADOR DE MIS PEDIDOS
+    public String verPedidos(BindingResult bindingResult,
+                             Model model,
+                             HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("user");
+        List<Pedido> listaPedidos = pedidoRepository.findByUsuario(usuario);
+        if (listaPedidos.isEmpty()) {
+            model.addAttribute("msg", "Todavia no ha realizado pedidos");
+            return "producto/misPedidos";
+        }
+        ArrayList<Joke> jokeArrayList = new ArrayList<Joke>();
+        for (Pedido pedido: listaPedidos ) {
+            Joke joke = new Joke();
+            List<MisPedidos> misPedidos = productoxpedidoRepository.listaMisPedidos(pedido.getIdpedido());
+            joke.setMisPedidos(misPedidos);
+            joke.setPedido(pedido);
+            jokeArrayList.add(joke);
+        }
+        model.addAttribute("lista", jokeArrayList );
+        return "producto/misPedidos";
     }
 
 
@@ -238,8 +278,6 @@ public class RegistradoController {
             return false;
         }
     }
-
-
 
 
 }

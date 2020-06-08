@@ -10,26 +10,28 @@ public class Pedido {
     @Id
     @Column(nullable = false, name="idpedido")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    String idpedido;
+    private Integer idpedido;
 
     @Column(nullable = false, name="total")
-    private
-    Float total;
+    private Float total;
 
     @Column(nullable = false, name="fecha")
-    private
-    LocalDate fecha;
+    private LocalDate fecha;
 
     @Column(nullable = false, name="codigo")
-    private
-    String codigo;
+    private String codigo;
 
-    public String getIdpedido() {
+    @ManyToOne
+    @JoinColumn(name = "idusuario", nullable = false)
+    private Usuario usuario;
+
+
+
+    public Integer getIdpedido() {
         return idpedido;
     }
 
-    public void setIdpedido(String idpedido) {
+    public void setIdpedido(Integer idpedido) {
         this.idpedido = idpedido;
     }
 
@@ -57,5 +59,13 @@ public class Pedido {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
