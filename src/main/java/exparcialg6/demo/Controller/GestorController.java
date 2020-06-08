@@ -5,16 +5,19 @@ import exparcialg6.demo.entity.Usuario;
 import exparcialg6.demo.repository.ProductoRepository;
 import exparcialg6.demo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +45,30 @@ public class GestorController {
 
 
     @GetMapping("/guardarProducto")
-    public String editarProducto(@ModelAttribute("producto") @Valid Producto producto, Model model , BindingResult bindingResult,
-                                 RedirectAttributes attr){
+    public String editarProducto(@ModelAttribute("producto") @Valid Producto producto, Model model, BindingResult bindingResult,
+                                 RedirectAttributes attr, @RequestParam("archivo") MultipartFile file) {
+        if (file.isEmpty()) {
 
+            model.addAttribute("msg", "Debe subir un archivo");
+            return "producto/listProduct";
+        }
+        String filename = file.getOriginalFilename();
+
+        if (filename.contains("..")) {
+            model.addAttribute("msg", "Debe subir un archivo");
+            return "producto/listProduct";
+        }
+        try {
+            producto.setFoto(file.getBytes());
+            producto.setFotonombre(filename);
+            producto.setFotocontenttype(file.getContentType());
+            productoRepository.save(producto);
+            return "redirect:/";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("msg", "Ocurrio un error");
+        }
         if (bindingResult.hasErrors()) {
             return "gestor/newProduct";
         } else {
@@ -58,6 +82,38 @@ public class GestorController {
                 return "redirect:/gestor";
             }
         }
+
+    }
+
+    @GetMapping("/image/{id}")
+    public ResponseEntity<byte[]> mostrarImagen(@PathVariable("id") int id) {
+        Optional<Producto> opt = productoRepository.findById(id);
+        if (opt.isPresent()) {
+            Producto p = opt.get();
+
+            byte[] imagencomobytes = p.getFoto();
+
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.parseMediaType(p.getFotocontenttype()));
+
+            return new ResponseEntity<>(
+                    imagencomobytes,
+                    httpHeaders,
+                    HttpStatus.OK);
+
+        } else {
+            return null;
+        }
+
+    }
+
+    @PostMapping("/buscarProducto")
+    public String buscarProducto(@RequestParam("searchField") String searchField,
+                                 Model model) {
+
+        List<Producto> listaProductos = productoRepository.findByNombre(searchField);
+        model.addAttribute("listaProductos", listaProductos);
+        return "producto/listProduct";
     }
 
 

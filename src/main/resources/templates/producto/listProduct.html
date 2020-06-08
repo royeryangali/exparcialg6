@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="fragmento/navBar.html :: cabecera( title = 'Lista Productos')"></head>
 <body>
 <div class="container">
     <nav th:replace="fragmento/navbar.html :: barrapedidos(active = session.user.rol)"></nav>
     <h2>Lista de Productos</h2>
-    <form class="form-inline d-flex mb-5" th:action="@{/}" method="post">
-        <div class="d-flex">
-            <input class="form-control form-control-sm mr-3 w-75 d-flex justify-content-center" type="text"
-                   placeholder="Search" aria-label="Search">
-            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Buscar">
+    <form method="post" th:action="@{/gestor/buscarProducto}">
+        <div class="input-group">
+            <input name="searchField" type="text"
+                   class="form-control bg-light border-0 small bg-white"
+                   placeholder="Filtrar..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-searchTop text-gray-900" type="submit">
+                    <i class="fas fa-search fa-sm text-gray-100"></i>
+                </button>
+            </div>
         </div>
     </form>
-    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se agregó el producto al carrito</h4>
+    <h4 th:if="${msg!=null}" th:text="${msg}" class="form-signin-heading" style="color:red">Aquí debería validar si se
+        agregó el producto al carrito</h4>
     <table class="table">
 
         <tr th:each="producto: ${listaProductos}">
             <table>
-                <!-- PARA CUANDO SE TENGA QUE COLOCAR FOTOS -->
-               <!-- <td><img th:height="160" th:width="160" th:src="@{|fileUploaded/${producto.id}|}"></td> -->
-                <td>AQUÍ IRÍA LA FOTEX</td>
+               <td><img th:height="160" th:width="160" th:src="@{|fileUploaded/${producto.getFoto()}|}"></td>
                 <td>
                     <ul>
                         <li th:text="${producto.codigo}">Aquí irá el código</li>
@@ -31,10 +35,14 @@
                 </td>
             </table>
             <table>
-                <a class="btn btn-primary" th:href="@{'/invitado/listarVerMas' + '?id=' + ${producto.idproducto}}">Ver más</a>
-                <a class="btn btn-dark" sec:authorize="hasAnyAuthority('gestor')"  th:href="@{'/gestor/editarProducto' + '?id=' + ${producto.idproducto}}">Editar Producto</a>
-                <a class="btn btn-danger"  sec:authorize="hasAnyAuthority('registrado')" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
-                <a class="btn btn-danger"  sec:authorize="isAnonymous()" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+                <a class="btn btn-primary" th:href="@{'/invitado/listarVerMas' + '?id=' + ${producto.idproducto}}">Ver
+                    más</a>
+                <a class="btn btn-dark" sec:authorize="hasAnyAuthority('gestor')"
+                   th:href="@{'/gestor/editarProducto' + '?id=' + ${producto.idproducto}}">Editar Producto</a>
+                <a class="btn btn-danger" sec:authorize="hasAnyAuthority('registrado')"
+                   th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
+                <a class="btn btn-danger" sec:authorize="isAnonymous()"
+                   th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
 
             </table>
             <br>

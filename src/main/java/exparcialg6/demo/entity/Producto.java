@@ -38,8 +38,6 @@ public class Producto  implements Serializable {
     private String fotocontenttype;
 
 
-
-
     public String getNombre() {
         return nombre;
     }
