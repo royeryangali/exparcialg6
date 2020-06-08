@@ -30,7 +30,7 @@ public class InvitadoController {
         }
         List<Producto> xd = productoRepository.findAll();
         int a = xd.size() / 7;
-dd
+
 
         ArrayList<Producto> enviar = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
