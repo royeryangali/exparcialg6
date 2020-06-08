@@ -227,6 +227,7 @@ public class RegistradoController {
             joke.setMisPedidos(misPedidos);
             joke.setPedido(pedido);
             jokeArrayList.add(joke);
+
         }
         model.addAttribute("lista", jokeArrayList );
         return "producto/misPedidos";
@@ -237,13 +238,13 @@ public class RegistradoController {
         if (Tarjeta != null) {
             if (Tarjeta.matches("^\\d{4}-\\d{4}-\\d{4}-\\d{4}$")) {
                 Tarjeta = Tarjeta.replaceAll("-","");
-                System.out.println(Tarjeta);
+
                 String mochado = Tarjeta.substring(0, 15); // quita el ultimo
-                System.out.println(mochado);
+
                 StringBuilder input1 = new StringBuilder(); //EMPIEZA A REVERSE
                 input1.append(mochado);
                 String volteado = input1.reverse().toString(); // Fin voltear
-                System.out.println(volteado);
+
                 int a1 = Integer.parseInt(volteado.substring(0, 1));
                 int a2 = Integer.parseInt(volteado.substring(1, 2));
                 int a3 = Integer.parseInt(volteado.substring(2, 3));
@@ -260,28 +261,20 @@ public class RegistradoController {
                 int a14 = Integer.parseInt(volteado.substring(13, 14));
                 int a15 = Integer.parseInt(volteado.substring(14));
                 int[] temp = {a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15};
-                System.out.println(temp[0]);
-                System.out.println(temp[1]);
-                System.out.println(temp[13]);
-                System.out.println(temp[14]);
-
                 int sumador = 0;
-                System.out.println("separador");
+                int x = 1;
                 for (int entero : temp) {
-
-                    if (entero % 2 == 1) { // inicio *2 si impar
+                    if (x % 2 == 1) { // IMPAR
                         entero = entero * 2;
-                        System.out.println("se multiplico x2 " + entero);
                     } //fin *2 si impar
                     if (entero > 9) {
-                        System.out.println(entero + " es mayor que nueve");
                         entero = entero - 9;
                     }
+                    x= x+1;
                     sumador = sumador + entero;
                 }
-                System.out.println("sumador " + sumador);
+
                 boolean bool = ((10 - (sumador % 10)) % 10) == Integer.parseInt(Tarjeta.substring(15));
-                System.out.println(bool);
                 if (bool) {
                     return true;
                 } else {
