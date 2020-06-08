@@ -10,7 +10,7 @@
             <div>
                 <table>
                     <tr th:each="productoCarrito : ${lista}">
-                        <td><img th:height="160" th:width="160" th:src="@{|gestor/image/${producto.idproducto}|}"></td>
+                        <td><img th:height="160" th:width="160" th:src="@{|/invitado/image/${productoCarrito.producto.idproducto}|}"></td>
                         <td>
                             <ul>
                                 <li th:text="|'El Código del producto es: '   ${productoCarrito.producto.codigo}|">Aquí irá el código</li>

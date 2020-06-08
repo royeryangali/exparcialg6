@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="container">
+    <nav th:replace="fragmento/navbar.html :: barrapedidos(active = session.user.rol)"></nav>
     <h1>Lista de Gestores</h1>
     <a class="btn btn-primary mt-4 mb-4" th:href="@{'/admin/new'}">Nuevo Gestor</a>
     <form class="input-group mb-lg-3" method="post" th:action="@{'/admin/buscarGestor'}">
