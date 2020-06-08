@@ -200,6 +200,21 @@ public class RegistradoController {
             pedido.setCodigo(codigo);
             pedido.setUsuario((Usuario) session.getAttribute("user"));
             pedidoRepository.save(pedido);
+            ArrayList<Producto> carrito = (ArrayList<Producto>) session.getAttribute("carrito");
+            List productos = productoRepository.findAll();
+            int veces = 0;
+            for (int i = 0; i < productos.size(); i++) {
+
+                veces = repetir(carrito, (Producto) productos.get(i));
+                if (veces > 0) {
+                    Productoxpedido productoxpedido = new Productoxpedido();
+                    productoxpedido.setCantidad(veces);
+                    productoxpedido.setPedido(pedido);
+                    productoxpedido.setProducto((Producto) productos.get(i));
+                    productoxpedidoRepository.save(productoxpedido);
+                }
+            }
+
             attr.addFlashAttribute("msg", "Pedido realizado exitosamente");
         } else {
             System.out.println("TARJETA ERRONEA");
