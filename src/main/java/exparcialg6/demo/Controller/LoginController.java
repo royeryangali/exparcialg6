@@ -50,7 +50,7 @@ public class LoginController {
             session.setAttribute("user", usuarioLogueado);
             return "redirect:/gestor";
         } else {
-            return "index";
+            return "/producto/listProduct";
         }
     }
 
@@ -93,7 +93,4 @@ public class LoginController {
             return "usuario/registrarUsuario";
         }
     }
-
 }
-
-

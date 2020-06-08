@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/invitado")
+@RequestMapping(value = {"/invitado", "", "/"})
 public class InvitadoController {
     @Autowired
     ProductoRepository productoRepository;
@@ -34,7 +34,9 @@ public class InvitadoController {
 
         ArrayList<Producto> enviar = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            enviar.add(xd.get(i + pag*7));
+            if(xd.size() > i + pag*7) {
+                enviar.add(xd.get(i + pag * 7));
+            }
         }
 
         model.addAttribute("listaProductos", enviar);

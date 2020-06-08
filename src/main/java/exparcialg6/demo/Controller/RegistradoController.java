@@ -100,16 +100,8 @@ public class RegistradoController {
             session.setAttribute("total", total);
             // END GET TOTAL
             model.addAttribute("listaProductos", productoRepository.findAll());
-            model.addAttribute("msg", producto.get().getNombre() + "Agregado exitosamente");
-            System.out.println("Luego de agregar el carrito tiene " + (a + 1) + " " + producto.get().getNombre() + "s");
-            System.out.println("Tamano de carrito: " + Carrito.size());
-            System.out.println("debug del producto");
-            System.out.println("total: " + total);
-            System.out.println(producto.get().getNombre());
-            System.out.println(producto.get().getPrecio());
-            System.out.println(producto.get().getCodigo());
-            System.out.println(producto.get().getDescripcion());
-            System.out.println(producto.get().getStock());
+            model.addAttribute("msg", producto.get().getNombre() + " Agregado exitosamente");
+
 
             return "producto/listProduct";
 
