@@ -21,9 +21,9 @@
                             </ul>
                         </td>
                     </tr>
-                    <h3 th:text="|${session.total}|"></h3>
-                </table>
 
+                </table>
+                <h2 th:text="|Total: S/ ${session.total}|"></h2>
                 <td><a class="alert-success" th:href="@{'/registrado/Checkout'}"> Proceder a comprar </a></td>
 
             </div>
