@@ -17,10 +17,10 @@
         <form style="text-align: center;" th:action="@{/registrado/guardarPedido}" method="post">
             <div style="text-align: center;">
                 <h4> -> Tarjeta de crédito </h4>
-                <input type="number" placeholder="" aria-label="Search">
+                <input type="text" id="tarjeta" name="tarjeta" placeholder="" required autofocus>
                 <br>
             </div>
-            <input type="submit" class="btn btn-danger" value="Pagar">
+            <input type="submit" class="btn btn-lg btn-danger " value="Pagar">
         </form>
     </div>
 
