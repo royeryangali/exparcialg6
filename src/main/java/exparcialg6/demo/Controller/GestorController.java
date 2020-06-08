@@ -71,6 +71,21 @@ public class GestorController {
         }
     }
 
+    @GetMapping("/borrarProducto")
+    public String borrarProducto(Model model,
+                               @RequestParam("id") int id,
+                               RedirectAttributes attr) {
+
+        Optional<Producto> producto = productoRepository.findById(id);
+
+        if (producto.isPresent()) {
+            productoRepository.deleteById(id);
+            attr.addFlashAttribute("msg", "Producto borrado exitosamente");
+        }
+        return "redirect:/gestor";
+
+    }
+
 
     //BORRAR PRODUCTO
 
