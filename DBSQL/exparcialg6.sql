@@ -18,6 +18,25 @@ USE `exparcialg6`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `pedido`
+--
+
+DROP TABLE IF EXISTS `pedido`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pedido` (
+  `idpedido` int(11) NOT NULL AUTO_INCREMENT,
+  `total` decimal(12,2) NOT NULL,
+  `fecha` date NOT NULL,
+  `codigo` varchar(18) NOT NULL,
+  `idusuario` int(11) NOT NULL,
+  PRIMARY KEY (`idpedido`),
+  KEY `idusuario_idx` (`idusuario`),
+  CONSTRAINT `idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `pedido`
 --
 
@@ -26,6 +45,27 @@ LOCK TABLES `pedido` WRITE;
 INSERT INTO `pedido` VALUES (1,457.31,'2020-06-01','ASDASDAD1',3),(2,94.20,'2020-05-30','AKJJ45',3),(3,55.10,'2020-06-05','ASDA113E',3),(4,12.30,'2020-05-25','DDRGG44G',3),(5,5.40,'2020-05-29','GGHH66',3),(6,6.30,'2020-04-30','HJJ7J7J',3),(7,1.20,'2020-05-28','JFGB53',7),(8,5.40,'2020-05-31','ASDFAF1',7),(9,3.10,'2020-06-08','PE8620209',3),(10,16.40,'2020-06-08','PE86202010',3);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `producto`
+--
+
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `producto` (
+  `idproducto` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(40) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `precio` decimal(4,2) NOT NULL,
+  `fotonombre` varchar(45) DEFAULT NULL,
+  `fotocontenttype` varchar(45) DEFAULT NULL,
+  `stock` int(11) NOT NULL,
+  `codigo` varchar(45) NOT NULL,
+  `foto` blob,
+  PRIMARY KEY (`idproducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `producto`
@@ -38,6 +78,26 @@ INSERT INTO `producto` VALUES (1,'Cheetos','snacks',1.50,'333.PNG','image/png',5
 UNLOCK TABLES;
 
 --
+-- Table structure for table `productoxpedido`
+--
+
+DROP TABLE IF EXISTS `productoxpedido`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productoxpedido` (
+  `idproductoxpedido` int(11) NOT NULL AUTO_INCREMENT,
+  `cantidad` int(11) NOT NULL,
+  `idpedido` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  PRIMARY KEY (`idproductoxpedido`),
+  KEY `fk_productoxpedido_pedido1_idx` (`idpedido`),
+  KEY `fk_productoxpedido_producto1_idx` (`idproducto`),
+  CONSTRAINT `fk_productoxpedido_pedido1` FOREIGN KEY (`idpedido`) REFERENCES `pedido` (`idpedido`),
+  CONSTRAINT `fk_productoxpedido_producto1` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `productoxpedido`
 --
 
@@ -46,6 +106,28 @@ LOCK TABLES `productoxpedido` WRITE;
 INSERT INTO `productoxpedido` VALUES (1,4,1,1),(2,5,1,2),(3,6,1,3),(4,2,2,4),(5,4,2,5),(6,5,2,6),(7,6,2,7),(8,2,3,8),(9,5,4,9),(10,6,5,10),(11,1,5,11),(12,3,6,12),(13,2,6,13),(14,5,6,14),(15,10,7,15),(16,5,8,2),(17,1,9,1),(18,1,9,2),(19,1,10,1),(20,1,10,2),(21,1,10,7),(22,4,10,15);
 /*!40000 ALTER TABLE `productoxpedido` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `spring_session`
+--
+
+DROP TABLE IF EXISTS `spring_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `spring_session` (
+  `PRIMARY_ID` char(36) NOT NULL,
+  `SESSION_ID` char(36) NOT NULL,
+  `CREATION_TIME` bigint(20) NOT NULL,
+  `LAST_ACCESS_TIME` bigint(20) NOT NULL,
+  `MAX_INACTIVE_INTERVAL` int(11) NOT NULL,
+  `EXPIRY_TIME` bigint(20) NOT NULL,
+  `PRINCIPAL_NAME` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`PRIMARY_ID`),
+  UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
+  KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),
+  KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `spring_session`
@@ -58,6 +140,22 @@ INSERT INTO `spring_session` VALUES ('4038bfe9-1b1e-4d2a-812e-c47ed86daaf8','d3f
 UNLOCK TABLES;
 
 --
+-- Table structure for table `spring_session_attributes`
+--
+
+DROP TABLE IF EXISTS `spring_session_attributes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `spring_session_attributes` (
+  `SESSION_PRIMARY_ID` char(36) NOT NULL,
+  `ATTRIBUTE_NAME` varchar(200) NOT NULL,
+  `ATTRIBUTE_BYTES` blob NOT NULL,
+  PRIMARY KEY (`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME`),
+  CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `spring_session` (`PRIMARY_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `spring_session_attributes`
 --
 
@@ -68,6 +166,26 @@ INSERT INTO `spring_session_attributes` VALUES ('4038bfe9-1b1e-4d2a-812e-c47ed86
 UNLOCK TABLES;
 
 --
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario` (
+  `idusuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(40) NOT NULL,
+  `apellido` varchar(40) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `correo` varchar(30) NOT NULL,
+  `rol` varchar(15) NOT NULL,
+  `password` varchar(85) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idusuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `usuario`
 --
 
@@ -76,10 +194,6 @@ LOCK TABLES `usuario` WRITE;
 INSERT INTO `usuario` VALUES (1,'admin','admin',23697364,'admin@pucp.edu.pe','administrador','$2a$04$xi8ChAahBPVAzW9S03kke.h1Np0./HlkPZkgGrPkQQ2ulZ4LzGDsW',1),(2,'sebastian','rojas',75747372,'sebastian.rojas@pucp.edu.pe','administrador','$2a$04$RQ95.mw9zRVRlZN0z08b6OZyColhPpK8Xs3SguHnVTTZTzuN/LjUS',1),(3,'royer','yangali',70771549,'r.yangali@pucp.pe','registrado','$2a$04$l6aZ9bARhaWs1im0rygazOh2ncCrx1jg9Xke4ll3LfNJ.YOxh..Zu',1),(4,'samuel','caro',72775480,'a20170086@pucp.edu.pe','gestor','$2a$04$4gERJPerO66XXrG2/pNj../rConaLrSaGuMoMQmkTLQbX9BKX18yO',1),(5,'stuardo','lucho',70774156,'stuardo.lucho@pucp.edu.pe','gestor','$2a$04$1FjNlHYNAwN0qB2YcDjEruZz5iZ2Di6pM9UE0RrmW3n5FDGHNOV2i',0),(7,'SAMUEL','Caro',12312312,'samuel@gmail.com','registrado','$2a$10$i7sBiy/jD4E1l2BYe2GYLehT.tS/gNm3K6qXo3hWK39mMIWux9/Ey',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'exparcialg6'
---
 
 --
 -- Dumping routines for database 'exparcialg6'
@@ -113,4 +227,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-08  2:35:48
+-- Dump completed on 2020-06-08  2:47:35
