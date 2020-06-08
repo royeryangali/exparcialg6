@@ -62,35 +62,35 @@ public class GestorController {
     public String editarProducto(@ModelAttribute("producto") @Valid Producto producto, Model model, BindingResult
             bindingResult, RedirectAttributes attr, @RequestParam("archivo") MultipartFile file) {
 
-        if (file.isEmpty()) {
-            model.addAttribute("msg", "Debe subir un archivo");
-            return "producto/listProduct";
-
-        }
-        String filename = file.getOriginalFilename();
-        if (filename.contains("..")) {
-            model.addAttribute("msg", "Debe subir un archivo");
-            return "producto/listProduct";
-        }
-        try {
-            producto.setFoto(file.getBytes());
-            producto.setFotonombre(filename);
-            producto.setFotocontenttype(file.getContentType());
-            productoRepository.save(producto);
-            return "redirect:/";
-
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-            model.addAttribute("msg", "Ocurrio un error");
-        }
         if (bindingResult.hasErrors()) {
             return "gestor/newProduct";
         } else {
             if (producto.getIdproducto() == 0) {
                 attr.addFlashAttribute("msg", "Producto creado exitosamente");
                 producto.setCodigo(producto.getNombre().substring(0, 2) + "99");
-                productoRepository.save(producto);
+                if (file.isEmpty()) {
+                    model.addAttribute("msg", "Debe subir un archivo");
+                    return "producto/listProduct";
+
+                }
+                String filename = file.getOriginalFilename();
+                if (filename.contains("..")) {
+                    model.addAttribute("msg", "Debe subir un archivo");
+                    return "producto/listProduct";
+                }
+                try {
+                    producto.setFoto(file.getBytes());
+                    producto.setFotonombre(filename);
+                    producto.setFotocontenttype(file.getContentType());
+                    productoRepository.save(producto);
+                    return "redirect:/gestor";
+
+                } catch (
+                        IOException e) {
+                    e.printStackTrace();
+                    model.addAttribute("msg", "Ocurrio un error");
+                }
+
                 return "redirect:/gestor";
             } else {
                 productoRepository.save(producto);
@@ -98,7 +98,6 @@ public class GestorController {
                 return "redirect:/gestor";
             }
         }
-
     }
 
     @GetMapping("/image/{id}")

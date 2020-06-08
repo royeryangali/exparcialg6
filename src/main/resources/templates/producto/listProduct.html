@@ -24,7 +24,7 @@
 
         <tr th:each="producto: ${listaProductos}">
             <table>
-               <td><img th:height="160" th:width="160" th:src="@{|fileUploaded/${producto.getFoto()}|}"></td>
+                <td><img th:height="160" th:width="160" th:src="@{|gestor/image/${producto.idproducto}|}"></td>
                 <td>
                     <ul>
                         <li th:text="${producto.codigo}">Aquí irá el código</li>
@@ -43,12 +43,8 @@
                    th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
                 <a class="btn btn-danger" sec:authorize="isAnonymous()"
                    th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
-
-                <a class="btn btn-primary" th:href="@{'/invitado/listarVerMas' + '?id=' + ${producto.idproducto}}">Ver más</a>
-                <a class="btn btn-dark" sec:authorize="hasAnyAuthority('gestor')"  th:href="@{'/gestor/editarProducto' + '?id=' + ${producto.idproducto}}">Editar Producto</a>
-                <a class="btn btn-danger"  sec:authorize="hasAnyAuthority('registrado')" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
-                <a class="btn btn-danger"  sec:authorize="isAnonymous()" th:href="@{'/registrado/AgregarCarrito' + '?id=' + ${producto.idproducto}}">Agregar al carrito</a>
-                <a class="btn btn-danger"  sec:authorize="hasAnyAuthority('gestor')" th:href="@{'/gestor/borrarProducto' + '?id=' + ${producto.idproducto}}">Borrar</a>
+                <a class="btn btn-danger" sec:authorize="hasAnyAuthority('gestor')"
+                   th:href="@{'/gestor/borrarProducto' + '?id=' + ${producto.idproducto}}">Borrar</a>
             </table>
             <br>
             <br>
