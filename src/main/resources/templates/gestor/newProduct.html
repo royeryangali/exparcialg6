@@ -6,18 +6,18 @@
 <div class="container">
     <nav th:replace="fragmento/navbar.html :: barrapedidos(active = 'Noimporta')"></nav>
     <h2 th:text="${producto.idproducto == 0?'Nuevo Producto':'Editar Producto'}"></h2>
+
     <form method="post" th:action="@{/gestor/guardarProducto}" enctype="multipart/form-data" th:object="${producto}">
         <input type="hidden" name="idusuario" th:value="${producto.idproducto}"/>
         <div class="row">
             <div class="form-group col-6">
                 <label for="nombre">Nombre del producto</label>
                 <input type="text" th:field="${producto.nombre}" class="form-control">
-                <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
             </div>
             <div class="form-group col-6">
                 <label for="descripcion">Descripción</label>
                 <input type="text" th:field="${producto.descripcion}" class="form-control">
-                <div class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+
             </div>
         </div>
 
@@ -25,16 +25,16 @@
             <div class="form-group col-6">
                 <label for="precio">Precio</label>
                 <input type="text" th:field="${producto.precio}" class="form-control">
-                <div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
             </div>
             <div class="form-group col-6">
                 <label for="foto">Foto</label>
                 <input type="file" class="form-control" id="archivo" name="archivo">
+                <input type="text" th:field="${producto.foto}" class="form-control">
             </div>
             <div class="form-group col-6">
                 <label for="stock">Stock</label>
                 <input type="text" th:field="${producto.stock}" class="form-control">
-                <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{stock}"></div>
+
             </div>
         </div>
         <a th:href="@{'/gestor'}" class="btn btn-danger">Cancelar</a>
