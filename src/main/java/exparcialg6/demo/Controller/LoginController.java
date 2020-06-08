@@ -10,9 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -59,28 +57,30 @@ public class LoginController {
     @PostMapping("/a")
     public String a(@ModelAttribute("usuario") Usuario usuario) {
         usuario.setActivo(1);
-        usuario.setRol("Invitado");
+        usuario.setRol("registrado");
         usuarioRepository.save(usuario);
         return "/login/loginForm";
     }
 
     @PostMapping("/guardarUsuario")
     public String guardarUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingresult,
-                                 RedirectAttributes attr) {
+                                 RedirectAttributes attr, @RequestParam("confirmar") String confirmar, Model model) {
 
-        String texto = "hola";
-
-        if (bindingresult.hasErrors()){
-            return "invitado/registrarse";
-        }
-        else {
-            usuario.setActivo(1);
-            usuario.setRol("Invitado");
-            BCryptPasswordEncoder b = new BCryptPasswordEncoder();
-            usuario.setPassword(b.encode(usuario.getPassword()));
-            usuarioRepository.registrarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getCorreo(),
-                    usuario.getRol(), usuario.getPassword(), usuario.getActivo());
-            return "/login/loginForm";
+        if (confirmar.equals(usuario.getPassword())) {
+            if (bindingresult.hasErrors()) {
+                return "usuario/registrarUsuario";
+            } else {
+                usuario.setActivo(1);
+                usuario.setRol("registrado");
+                BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+                usuario.setPassword(b.encode(usuario.getPassword()));
+                usuarioRepository.registrarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getCorreo(),
+                        usuario.getRol(), usuario.getPassword(), usuario.getActivo());
+                return "/login/loginForm";
+            }
+        } else {
+            model.addAttribute("msg", "Las contraseñas no coinciden");
+            return "usuario/registrarUsuario";
         }
     }
 
