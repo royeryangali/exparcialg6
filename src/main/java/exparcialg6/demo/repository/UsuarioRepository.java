@@ -20,5 +20,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Procedure
     void registrarUsuario(String nom, String ape, int dni, String cor, String rol, String password, int activo);
 
-
+    @Query(value = "select usuario.correo from usuario",
+            nativeQuery = true)
+    List<String> listaCorreos ();
 }

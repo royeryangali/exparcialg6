@@ -54,12 +54,21 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/a")
-    public String a(@ModelAttribute("usuario") Usuario usuario) {
-        usuario.setActivo(1);
-        usuario.setRol("registrado");
-        usuarioRepository.save(usuario);
-        return "/login/loginForm";
+    @PostMapping("/recuperarContraseña")
+    public String recuperarContraseña(@RequestParam("correo") String correo, Model model) {
+        Boolean existe = false;
+        for (String correo2 : usuarioRepository.listaCorreos()) {
+            if (correo.equals(correo2)) {
+                existe = true;
+            }
+        }
+        if (existe) {
+            model.addAttribute("msg", "Se le ha enviado un correo a su dirección para restablecer la contraseña");
+            return "/login/loginForm";
+        } else {
+            model.addAttribute("msg", "No existe dicho usuario");
+            return "/login/recoveryForm";
+        }
     }
 
     @PostMapping("/guardarUsuario")
@@ -76,6 +85,7 @@ public class LoginController {
                 usuario.setPassword(b.encode(usuario.getPassword()));
                 usuarioRepository.registrarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getDni(), usuario.getCorreo(),
                         usuario.getRol(), usuario.getPassword(), usuario.getActivo());
+                model.addAttribute("msg", "Se ha creado su usuario");
                 return "/login/loginForm";
             }
         } else {

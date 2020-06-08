@@ -11,6 +11,7 @@
 </head>
 <body class="text-center">
 <div class="container theme-showcase">
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <form class="form-signin" th:action="@{/processLogin}" method="post">
         <h2 class="form-signin-heading text-md-center">Ingreso al sistema</h2>
 
@@ -21,7 +22,7 @@
         <input type="password" id="password" name="password" class="form-control" required>
 
         <div class="checkbox">
-            <label><input type="checkbox">Recordarme</label>
+            <label><input type="checkbox" id="checkbox" value="Recordarme">Recordarme</label>
         </div>
 
         <h4 th:if="${param.error}" class="form-signin-heading" style="color:red">Usuario o contraseña incorrectos</h4>
