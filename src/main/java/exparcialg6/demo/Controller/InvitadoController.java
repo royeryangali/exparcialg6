@@ -23,6 +23,9 @@ public class InvitadoController {
 
     @GetMapping(value={"/listarProductos","","/"})  // LISTAR PRODUCTOS
     public String listarProductos( Model model, RedirectAttributes attr) {
+
+
+
             model.addAttribute("listaProductos", productoRepository.findAll());
             return "producto/listProduct";
     }
