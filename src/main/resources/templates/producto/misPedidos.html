@@ -10,7 +10,6 @@
             <div>
                 <table>
                     <tr th:each="joke : ${lista}">
-
                         <td>
                             <ul>
                                 <h4 th:text="|Pedido  #${joke.getPedido().getCodigo()}  - - - - - -      fecha: ${joke.getPedido().getFecha()}|">
